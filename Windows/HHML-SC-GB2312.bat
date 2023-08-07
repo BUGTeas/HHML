@@ -1,40 +1,40 @@
 @echo off
 rem Language config
-set prd=.
-set lb=^^(
-set gb=^^)
-set cma=, 
-set cln=: 
+set prd=¡£
+set lb=£¨
+set gb=£©
+set cma=£¬
+set cln=£º
 set txt000=Hello HMCL! Launcher v3.5.3.229 Update 0
-set txt001=^^(exclude
-set txt002=Looking for HMCL ^^(JAR^^) file in the current directory
-set txt003=No available HMCL found in the current directory, make sure it's in the same directory under this batch file and the name is ^"HMCL-^<Version number^>.jar^".
-set txt004=HMCL was found, named
-set txt005=, version number is
-set txt006= ^(Converted to an integer^).
-set txt100=Java path is
-set txt101=Looking for installed Java in system
-set txt102=Looking for Java in the current directory
-set txt103=Detected
-set txt104=Looking for Java in the custom path
-set txt105=bit 
-set txt201=No available Java found 
-set txt202=
+set txt001=£¨ÅÅ³ı
+set txt002=ÕıÔÚ´Óµ±Ç°Ä¿Â¼ÏÂÑ°ÕÒ HMCL£¨JAR£©ÎÄ¼ş
+set txt003=µ±Ç°Ä¿Â¼ÏÂÕÒ²»µ½¿ÉÓÃµÄ HMCL£¬ÇëÈ·±£ËüÎ»ÓÚ´ËÅú´¦ÀíÏÂµÄÍ¬Ò»Ä¿Â¼ÇÒÃû³ÆÎª¡°HMCL-^^^<°æ±¾ºÅ^^^>.jar¡±¡£
+set txt004=ÒÑÕÒµ½ HMCL£¬ÃûÎª
+set txt005=£¬°æ±¾ºÅÎª
+set txt006=£¨ÒÑ×ª»»ÎªÕûÊı£©
+set txt100=Java Â·¾¶Îª
+set txt101=ÕıÔÚ´ÓÏµÍ³ÖĞÑ°ÕÒ Java
+set txt102=ÕıÔÚ´Óµ±Ç°Ä¿Â¼ÏÂÑ°ÕÒ Java
+set txt103=ÒÑ¼ì²âµ½
+set txt104=ÕıÔÚ´Ó×Ô¶¨ÒåÂ·¾¶ÏÂÑ°ÕÒ Java
+set txt105=Î» 
+set txt201=
+set txt202=ÕÒ²»µ½¿ÉÓÃµÄ Java
 set txt203=
-set txt301=will be used, version is
-set txt302=, path is
-set txt501=Restoring global config
-set txt502=Restoring external login dependencies
-set txt503=Restoring runtime module
-set txt504=The runtime module is not found for the current HMCL version, will download automatically by HMCL ^^(just this once^^). when HMCL exiting, It is automatically copied to this for the next boot.
-set txt505=Unable to automatically backup/restore/remove the runtime because the Java bit width is unknown.
-set txt506=Please check the Java bit width ^^(32bit/64bit^^) and configure the ^"use64java^" ^^(Whether to use 64bit Java^^) parameter to 0/1 in ^"config.txt^" file.
-set txt701=trying to hide shell...
-set txt702= ^^(Error^^)
-set txt703=Press any key to exit
-set txt704=Press any key to backup the current global config, close the window to cancel.
-set txt705=Backing up login status for next boot
-set txt706=Backing up runtime module for next boot
+set txt301=½«±»Ê¹ÓÃ£¬°æ±¾ºÅÎª
+set txt302=£¬Â·¾¶Îª
+set txt501=ÕıÔÚ»¹Ô­È«¾ÖÅäÖÃ
+set txt502=ÕıÔÚ»¹Ô­ÍâÖÃµÇÂ¼ÒÀÀµ
+set txt503=ÕıÔÚ»¹Ô­ÔËĞĞÊ±×é¼ş
+set txt504=ÕÒ²»µ½ÊÊÓÃÓÚµ±Ç° HMCL °æ±¾µÄÔËĞĞÊ±×é¼ş£¬½«ÓÉ HMCL ×Ô¶¯ÏÂÔØ£¨¾ÍÕâÒ»´Î£©¡£µ± HMCL ÍË³öÊ±£¬»á×Ô¶¯½«Æä¸´ÖÆµ½´ËÒÔ±¸ÏÂ´ÎÆô¶¯¡£
+set txt505=ÎŞ·¨×Ô¶¯±¸·İ/»¹Ô­/É¾³ıÔËĞĞÊ±×é¼ş£¬ÒòÎªÎ´Öª Java µÄÎ»¿í¡£
+set txt506=Çë¼ì²é Java µÄÎ»¿í£¨32Î»/64Î»£©²¢ÔÚ¡°config.txt¡±ÎÄ¼şÖĞÅäÖÃ¡°use64java¡±²ÎÊıÎª0/1¡£
+set txt701=ÕıÔÚ³¢ÊÔÒş²Ø Shell...
+set txt702=£¨´íÎó£©
+set txt703=°´ÈÎÒâ¼üÍË³ö
+set txt704=°´ÈÎÒâ¼ü±¸·İÈ«¾ÖÅäÖÃ£¬¹Ø±Õ´°¿ÚÔòÈ¡Ïû
+set txt705=ÕıÔÚ¸´ÖÆÈ«¾ÖÅäÖÃÒÔ±¸ÏÂ´ÎÆô¶¯
+set txt706=ÕıÔÚ¸´ÖÆÔËĞĞÊ±×é¼şÒÔ±¸ÏÂ´ÎÆô¶¯
 
 
 echo %txt000%
@@ -213,7 +213,7 @@ if %javaType% == openjdk if %disableOpenJDK% == 1 goto :eof
 for /f "tokens=*" %%b in ('echo %verBlackList% ^|findstr /i %javaVer%') do goto :eof
 set ver=%javaVer:_= %
 set ver=%ver:"=%
-rem Get subversion number behind the underline of old version number formatï¼ˆ1.x.0_xxxï¼‰
+rem Get subversion number behind the underline of old version number format£¨1.x.0_xxx£©
 set subVer8=0
 for /f "tokens=2" %%i in ('echo %ver%') do set subVer8=%%i
 set subVer8=%subVer8:-= %
@@ -273,26 +273,26 @@ rem Java not found
 set txten=0
 if %disableSearchInst% neq 1 (
     set txten=1
-    set txt604=system
-    set txt607=installed
+    set txt604=ÏµÍ³ÖĞ
+    set txt607=ÒÑ°²×°
 )
 if %disableSearchCD% neq 1 (
     set txten=1
-    set txt606=the current directory
-    set txt608=in the same directory under this batch file
+    set txt606=µ±Ç°Ä¿Â¼ÏÂ
+    set txt608=Î»ÓÚ´ËÅú´¦ÀíÏÂµÄÍ¬Ò»Ä¿Â¼ÏÂ
 )
 if %disableCustPath% neq 1 (
     set txten=1
-    set txt601=the custom path
-    set txt602=in the custom path
+    set txt601=×Ô¶¨ÒåÂ·¾¶
+    set txt602=ÔÚ×Ô¶¨ÒåÂ·¾¶ÖĞ
 )
 if %txten% == 1 (
-    set txt603=in 
-    set txt609=make sure it's 
-) else set txt609=All Java lookup functions have been disabled, please check the "config.txt"
-if %disableSearchInst% neq 1 if %disableSearchCD% neq 1 set txt605= or 
-if %disableCustPath% neq 1 if %disableSearchInst% neq 1 set txt600= or 
-if %disableCustPath% neq 1 if %disableSearchCD% neq 1 set txt600= or 
+    set txt603=ÔÚ
+    set txt609=ÇëÈ·±£Ëü
+) else set txt609=ËùÓĞÑ°ÕÒ Java µÄ¹¦ÄÜ¾ùÒÑ¹Ø±Õ£¬Çë¼ì²éÅäÖÃÎÄ¼ş¡°config.txt¡±¡£
+if %disableSearchInst% neq 1 if %disableSearchCD% neq 1 set txt605=»ò
+if %disableCustPath% neq 1 if %disableSearchInst% neq 1 set txt600=»ò
+if %disableCustPath% neq 1 if %disableSearchCD% neq 1 set txt600=»ò
 echo %txt201%%exclude%%txt603%%txt601%%txt600%%txt604%%txt605%%txt606%%txt202%%cma%%txt203%%txt609%%txt602%%txt600%%txt607%%txt605%%txt608%%prd%
 goto baterror
 
@@ -409,7 +409,7 @@ if %backupRunTime% == 2 call :backupRT
 if %backupRunTime% geq 1 if not exist .\dependencies\authlib-injector.jar xcopy /s /y %conDir%authlib-injector.jar .\dependencies\
 if %backupGlobalConfig% == 2 call :backupGC
 if %backupGlobalConfig% == 1 (
-    mode con cols=90 lines=5
+    mode con cols=60 lines=5
     echo .
     echo .
     echo %txt704%...
