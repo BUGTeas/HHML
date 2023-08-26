@@ -1,5 +1,6 @@
 # Hello HMCL! Launcher (HHML)
-A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive
+A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive\
+English [简体中文](README-SC.md) [Documents](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/en.js)\
 Latest version：3.5.3.229 Update 1
 ## HHML introduce
 Hello HMCL! Launcher（below referred to as HHML）is a command script (support Windows only now), look from the name, this is a launcher written for the launcher.\
@@ -13,7 +14,7 @@ if you using a non-Chinese simplified Windows or UTF-8 global language support h
 2. put the HMCL JAR file and HHML script and unzipped java archive (multiple different versions can be placed) in the same directory (can be on a flash drive or hard disk)
 3. run the HHML script, the script will secrch all Java archive in current directory automatic and pick the latest Java version to launch HMCL JAR file, soon the interface of HMCL will appear, but sometime also it's download runtimes (JavaFX) automatic, it puts it in the system by default, it is very troublesome to download it again after changing computers. So HHML can back it up to current directory in preparation for restoring to the system on another computer, saving time to download again.
 4. With the help of HHML script, the HMCL not only can search installed Java in the system automatic, but also can search unzipped Java in current directory automatic. This mains you don't need to manually add a non-installed Java version path to custom path (unlike PCL2, only one custom Java path can be added in HMCL)
-5. After that, HMCL should be launched via the HHML script instead of opening the JAR file directly. To speed up the game startup, you can enable "Do not check game integrity" option in advanced settings, because the intergrity check before the game launch requires a large amount of data to be copied to the system disk, if the game is on a flash disk, it will take a lot of time to complete this step.
+5. After that, you should launch HMCL via the HHML script instead of opening the JAR file directly. To speed up the game startup, you can enable "Do not check game integrity" option in advanced settings, because the intergrity check before the game launch requires a large amount of data to be copied to the system disk, if the game is on a flash disk, it will take a lot of time to complete this step.
 ## Advanced usage
 ### Custom Java path (relative path can be used)
 Create a text file under the same directory as the script and named "customPath.txt". The text content is one Java path per line, like this:
