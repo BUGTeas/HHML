@@ -1,5 +1,10 @@
 # Hello HMCL! Launcher (HHML)
 A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive
+Latest version：3.5.3.229 Update 1
+## HHML introduce
+Hello HMCL! Launcher（below referred to as HHML）is a command script (support Windows only now), look from the name, this is a launcher written for the launcher.\
+This script use to resolve the HMCL launcher (Hello Minecraft! Launcher) put some related config file and runtime to user directory in system, resulting in the need for reconfiguration on another system. The script will restore the downloaded runtime and global to user directory in system and back it up when exiting.\
+in addition, the HHML can also make HMCL detect and auto select Java under the current diredtory, needn't install or add manually
 ## Simple usage
 1. Download a Java archive (can be OpenJDK) of the required version of the MC version you are playing (not the installer) and unzip it, and download latest version of HMCL in JAR format on the [HMCL official webside](https://hmcl.huangyuhui.net/download/), and download latest version HHML script in release or Github pages.\
 (if you using a non-Chinese simplified Windows or UTF-8 global language support has been enabled, please select the English edition, Otherwise garbled characters will appear, even cause errors!)
