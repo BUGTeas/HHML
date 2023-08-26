@@ -24,7 +24,7 @@ C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-6
 \software\jdk\archive\jdk-17.0.8+7
 ```
 注意：Java 路径不是 Java 程序本体所在路径，而是“bin”文件夹所在位置，类似于 JAVA_HOME 变量。\
-\
+
 ### 配置文件
 在脚本所在目录下创建一个名为“config.txt”的文本文档。里面不能有空行或注释，格式为“配置=参数”，就像这样：
 ```
@@ -102,7 +102,6 @@ use64java=1
 1: 如果上一范围中未找到 Java 则搜索此范围
 2: 总是搜索此范围（即使 Java 已经找到）
 ```
-\
 **搜索自定义路径**\
 配置名：searchInCustPath\
 默认参数：2\
@@ -117,7 +116,7 @@ use64java=1
 配置名：searchInInstApp\
 默认参数：1\
 注意：由于搜索此范围需要遍历大量注册表，因此速度较慢，所以默认只会在前面的范围中未找到 Java 的情况下搜索此范围。\
-如果你安装的 Java 不被 HMCL 检测到，可以将此配置的参数设为 2，在此范围找到的 Java 会被添加到临时环境变量中，以便 HMCL 检测到。\
+如果你安装的 Java 不被 HMCL 检测到，可以将此配置的参数设为 2，在此范围找到的 Java 会被添加到临时环境变量中，以便 HMCL 检测到。
 
 ### 默认 Java 检测和屏蔽配置
 你可以通过此选项设置脚本检测 Java 的规则：\
