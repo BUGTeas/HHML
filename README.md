@@ -150,5 +150,5 @@ Usage: enter unwanted version number in the parameter (can be multiple, use comm
 Default parameter: none\
 Parameter demo:
 ```
-verBlackList=1.8.0**272,17.0.1
+verBlackList=1.8.0_272,17.0.1
 ```
