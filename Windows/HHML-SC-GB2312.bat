@@ -1,11 +1,15 @@
 @echo off
+color 0f
+if "%1" == "h" goto begin
+if "%1" == "j" goto backup
+
 rem Language config
 set prd=。
 set lb=（
 set gb=）
 set cma=，
 set cln=：
-set txt000=Hello HMCL! Launcher v3.5.3.229 Update 1
+set txt000=Hello HMCL! Launcher v3.5.5 更新 2
 set txt001=（排除
 set txt002=正在从当前目录下寻找 HMCL（JAR）文件
 set txt003=当前目录下找不到可用的 HMCL，请确保它位于此批处理下的同一目录且名称为“HMCL-^^^<版本号^^^>.jar”。
@@ -36,13 +40,8 @@ set txt704=按任意键备份全局配置，关闭窗口则取消
 set txt705=正在复制全局配置以备下次启动
 set txt706=正在复制运行时组件以备下次启动
 
-
 echo %txt000%
 title %txt000%
-color 0f
-if "%1" == "h" goto begin
-if "%1" == "j" goto backup
-
 
 rem default backup/restore/remove configuration
 set backupRunTime=1
@@ -360,19 +359,21 @@ set rth1=dependencies\windows-x86
 set rth2=\openjfx\
 set conDir=%userprofile%\AppData\Roaming\.hmcl\
 if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json if not exist %conDir%accounts.json set restoreGlobalConfig=2
-if %restoreGlobalConfig% == 2 (if exist .\globalConfig\ (
-    echo %txt501%...
-    xcopy /s /y .\globalConfig\accounts.json %conDir%
-    xcopy /s /y .\globalConfig\config.json %conDir%
+if %restoreGlobalConfig% == 2 (
+    if exist .\globalConfig\ (
+        echo %txt501%...
+        xcopy /s /y .\globalConfig\accounts.json %conDir%
+        xcopy /s /y .\globalConfig\config.json %conDir%
+    )
     if %backupGlobalConfig% == 1 set backupGlobalConfig=2
     if %removeGlobalConfig% == 1 set removeGlobalConfig=2
-))
+)
 
 
 if %restoreRunTime% geq 1 (
     echo %txt502%...
-    if exist .\dependencies\authlib-injector.jar if not exist %conDir%authlib-injector.jar (
-        xcopy /s .\dependencies\authlib-injector.jar %conDir%
+    if not exist %conDir%authlib-injector.jar (
+        if exist .\dependencies\authlib-injector.jar xcopy /s .\dependencies\authlib-injector.jar %conDir%
         if %removeRunTime% == 1 set removeAuthLib=1
     )
     if not exist .\dependencies\authlib-injector.jar (
