@@ -1,7 +1,8 @@
 @echo off
-color 0f
-if "%1" == "h" goto begin
-if "%1" == "j" goto backup
+if "%1" == "up" goto launch
+if "%1" == "backup" goto afterExit
+
+setlocal enabledelayedexpansion
 
 rem Language config
 set prd=.
@@ -9,10 +10,10 @@ set lb=^^(
 set gb=^^)
 set cma=, 
 set cln=: 
-set txt000=Hello HMCL! Launcher v3.5.5 Update 2
-set txt001=^^(exclude
+set txt000=Hello HMCL! Launcher v3.5.3.229 Update 3
+set txt001= ^^(exclude
 set txt002=Looking for HMCL ^^(JAR^^) file in the current directory
-set txt003=No available HMCL found in the current directory, make sure it's in the same directory under this batch file and the name is ^"HMCL-^<Version number^>.jar^".
+set txt003=No available HMCL found in the current directory, make sure it's in the same directory under this batch file and the name format is ^"HMCL-^<Version number^>.jar^".
 set txt004=HMCL was found, named
 set txt005=, version number is
 set txt006= ^(Converted to an integer^).
@@ -22,7 +23,7 @@ set txt102=Looking for Java in the current directory
 set txt103=Detected
 set txt104=Looking for Java in the custom path
 set txt105=bit 
-set txt201=No available Java found 
+set txt201=No available Java found
 set txt202=
 set txt203=
 set txt301=will be used, version is
@@ -39,6 +40,15 @@ set txt703=Press any key to exit
 set txt704=Press any key to backup the current global config, close the window to cancel.
 set txt705=Backing up login status for next boot
 set txt706=Backing up runtime module for next boot
+
+set txt106=Looking for Java in JavaSoft registry
+set txt109=Looking for Java in %%PATH%% environment variable
+set txt107=Version 
+set txt108= is in the black list, will skip it.
+set txt707=If you want to backup the current global config, input ^"y^" and press Enter key: 
+set txt708=Will not backup the current global config this time.
+set txt709=HMCL has exited.
+
 
 echo %txt000%
 title %txt000%
@@ -61,6 +71,8 @@ set checkJava=2
 set useJava8First=0
 set use64java=x
 set verBlackList=none
+rem Default HMCL log display configuration
+set showHMCLlog=0
 
 
 rem Show excluded items
@@ -77,34 +89,63 @@ if %excStatus% neq 0 set exclude=%txt001% %txt011%%txt012%%txt013%%gb%
 
 rem Search HMCL in the current directory
 echo %txt002%...
-set hmclPath=none
+set hmclLatestPath=none
 for /f "tokens=*" %%i in ('dir /b HMCL*.jar') do (
-    set hmclPath="%%i"
+    set g=n
+    set "hmclPath=%%i"
+    set "cnt=4"
+    set "vaildCnt=0"
+    set "olderHMCL=0"
+    call :testHMCL
 )
-if %hmclPath% == none (
+if %hmclLatestPath% == none (
     echo %txt003%
-    goto baterror
-)
-set cnt=0
-set sstr=%hmclPath:~5,-5%
-:loop
-set str=^%%sstr:~%cnt%,1^%%
-echo set str="%str%" > tmp.bat
-call tmp.bat
-if %str% neq "" (
-    set /a cnt+=1
-    echo %str:~1,1%|findstr "[^0-9]">nul&&set hmclVer=%hmclVer%||set hmclVer=%hmclVer%%str:~1,1%
-    goto loop
-)
-del tmp.bat
+    goto error
+) else set hmclPath=%hmclLatestPath%
+set hmclVer=%hv1%%hv2%%hv3%%hv4%%hv5%
 if %hmclVer% lss 1000 set hmclVer=%hmclVer%0
 if %hmclVer% lss 10000 set hmclVer=%hmclVer%0
 if %hmclVer% lss 100000 set hmclVer=%hmclVer%0
 if %hmclVer% lss 1000000 set hmclVer=%hmclVer%0
 if %hmclVer% lss 10000000 set hmclVer=%hmclVer%0
 echo %txt004% %hmclPath%%txt005% "%hmclVer%"%txt006%
+goto findJava
+:testHMCL
+set string=!hmclPath:~%cnt%,1!
+set gtr=0
+echo %string%|findstr "[^0-9]">nul&&(
+    set g=g
+    if !hv%vaildCnt%! lss !lv%vaildCnt%! (
+        set hv%vaildCnt%=!lv%vaildCnt%!
+        set hmclLatestPath=%hmclPath%
+        set /a resetCnt=%vaildCnt%+1
+        call :resetHMCLVer
+    ) else if !hv%vaildCnt%! gtr !lv%vaildCnt%! set olderHMCL=1
+    set lv%vaildCnt%=
+)||if %olderHMCL% equ 0 call :setHMCLVer
+if "%string%" neq "" (
+    set /a cnt+=1
+    goto testHMCL
+)
+goto :eof
+:setHMCLVer
+if %g% equ g (
+    set g=n
+    set /a vaildcnt+=1
+)
+if "!hv%vaildCnt%!" equ "" set hv%vaildCnt%=0
+set lv%vaildCnt%=!lv%vaildCnt%!%string%
+goto :eof
+:resetHMCLVer
+if "!hv%resetCnt%!" neq "" (
+    set /a resetCnt+=1
+    set hv%resetCnt%=0
+    goto resetHMCLVer
+)
+goto :eof
 
 
+:findJava
 set triedInstJava=0
 set triedCDJava=0
 set javaPath=none
@@ -128,13 +169,17 @@ set sia=%searchInInstApp%
 call :checkPath
 if %scp% == 2 call :findCustJava
 if %scd% == 2 call :findCDJava
+if %ssp% == 2 call :findPathJava
+if %sjr% == 2 call :findJavaReg
 if %sia% == 2 call :findInstJava
 if %checkJava% == 1 call :testJava
-if %checkJava% geq 1 (goto checkOther) else (
+if %checkJava% geq 1 (
+    goto selectJava
+) else (
     echo %txt100% "%javaPath%"%prd%
     set jv1=11
-    if "%javaPath%" == "none" goto notFind
-    goto loadOther
+    if "%javaPath%" == "none" goto javaNotFound
+    goto restoreSomething
 )
 
 
@@ -173,6 +218,77 @@ call :checkPath
 goto :eof
 
 
+rem Find Java under the current directory
+:findCDJava
+echo %txt102%...
+set lastcd="%cd%"
+for /r %%b in (*java.exe) do (
+    if /i "%%~nxb" equ "java.exe" (
+        set sPath=%%b
+        call :testCDJava
+    )
+)
+if "%cd%" neq %lastcd% cd %lastcd%
+call :checkPath
+goto :eof
+rem Test Java under the current directory
+:testCDJava
+cd "%sPath%\..\..\"
+set javaPath=%cd%
+call :addPath
+if %checkJava% == 2 call :testJava
+goto :eof
+
+
+rem Find Java in PATH value
+:findPathJava
+echo %txt109%...
+set lastcd="%cd%"
+set pcnt=0
+:findPathWork
+set /a pcnt+=1
+for /f "delims=; tokens=%pcnt%" %%p in ("%PATH%") do (
+    if exist "%%p\java.exe" (
+        cd "%%p\..\"
+        call :existPathJava
+    )
+    goto findPathWork
+)
+if "%cd%" neq %lastcd% cd %lastcd%
+goto :eof
+:existPathJava
+set javaPath=%cd%
+if %checkJava% == 2 call :testJava
+goto :eof
+
+
+rem Find Java in JavaSoft registry
+:findJavaReg
+echo %txt106%...
+set lastcd="%cd%"
+for /f "tokens=*" %%a in ('reg query "HKLM\SOFTWARE\JavaSoft"') do (
+    for /f "tokens=*" %%i in ('reg query "%%a" ^| findstr /i "%%a"') do (
+        for /f "tokens=*" %%j in ('reg query "%%i" ^| findstr /i "%%i"') do (
+            for /f "tokens=*" %%l in ('reg query "%%j" ^| findstr /i "JavaHome"') do (
+                set "instPath=%%l"
+                call :getJavaRegPath
+            )
+        )
+    )
+)
+if "%cd%" neq %lastcd% cd %lastcd%
+call :checkPath
+goto :eof
+rem Test Java in JavaSoft registry
+:getJavaRegPath
+if exist "%instPath:~22%\bin\java.exe" (
+    set javaPath=%instPath:~22%
+    call :addPath
+    if %checkJava% == 2 call :testJava
+)
+goto :eof
+
+
 rem Find Java in system
 :findInstJava
 echo %txt101%...
@@ -201,9 +317,8 @@ for /f "tokens=*" %%a in ('reg query "%rp%"') do (
     )
 )
 goto :eof
-:getInstInfo
-rem cls
 rem Get installation path
+:getInstInfo
 for /f "tokens=*" %%b in ('reg query "%rp%\%1" /v "InstallLocation" 2^>nul ^|findstr /i "InstallLocation"') do (
   set instPath=%%b
   call :getInstPath
@@ -219,29 +334,7 @@ if exist "%instPath:~29%bin\java.exe" (
 goto :eof
 
 
-rem Find Java in the current directory
-:findCDJava
-echo %txt102%...
-set FileName=java.exe
-set lastcd="%cd%"
-for /r %%b in (*%FileName%) do (
-    if /i "%%~nxb" equ "%FileName%" (
-        set sPath=%%b
-        call :testCDJava
-    )
-)
-if "%cd%" neq %lastcd% cd %lastcd%
-call :checkPath
-goto :eof
-
-:testCDJava
-cd %sPath%\..\..\
-set javaPath=%cd%
-call :addPath
-if %checkJava% == 2 call :testJava
-goto :eof
-
-
+rem Add Java bin directory to %PATH% value
 :addPath
 set PATH=%javaPath%\bin;%PATH%
 goto :eof
@@ -253,13 +346,17 @@ rem Get Java bitness and version
 if not exist "%javaPath%\release" goto :eof
 cd "%javaPath%"
 for /f "tokens=*" %%a in (release) do if "%%a" neq "" set %%a
+rem Check bitness
 set use64java=0
 if %OS_ARCH% == "amd64" set use64java=1
 if %OS_ARCH% == "x86_64" set use64java=1
 rem Check version
 if %use64java% == 1 (set txtbit=64) else (set txtbit=32)
 echo %txt103% %txtbit% %txt105%Java%cln%%JAVA_VERSION%%prd%
-for /f "tokens=*" %%b in ('echo %verBlackList% ^|findstr /i %JAVA_VERSION%') do goto :eof
+set cnt=1
+set inBlackList=0
+call :getBlackList
+if %inBlackList% equ 1 goto :eof
 set ver=%JAVA_VERSION:_= %
 set ver=%ver:"=%
 rem Get subversion number behind the underline of old version number format（1.x.0_xxx）
@@ -274,31 +371,28 @@ if %useJava8First% == 1 if %subVer8% lss %sv8% (
     set "java8Path=%javaPath%"
     set use64java8=%use64java%
 )
-
-
 rem Get Newer version number
 for /f "tokens=1" %%i in ("%ver%") do set ver=%%i
 set verl=%ver:.= %
-set v1=0
-for /f "tokens=1" %%i in ("%verl%") do set v1=%%i
-set v2=0
-for /f "tokens=2" %%i in ("%verl%") do set v2=%%i
-set v3=0
-for /f "tokens=3" %%i in ("%verl%") do set v3=%%i
-
+set lv1=0
+for /f "tokens=1" %%i in ("%verl%") do set lv1=%%i
+set lv2=0
+for /f "tokens=2" %%i in ("%verl%") do set lv2=%%i
+set lv3=0
+for /f "tokens=3" %%i in ("%verl%") do set lv3=%%i
 set verSet=0
-if %jv1% leq %v1% (
-    if %jv1% lss %v1% (
-        set jv1=%v1%
+if %jv1% leq %lv1% (
+    if %jv1% lss %lv1% (
+        set jv1=%lv1%
         set verSet=1
     )
-    if %jv2% leq %v2% (
-        if %jv2% lss %v2% (
-            set jv2=%v2%
+    if %jv2% leq %lv2% (
+        if %jv2% lss %lv2% (
+            set jv2=%lv2%
             set verSet=1
         )
-        if %jv3% lss %v3% (
-            set jv3=%v3%
+        if %jv3% lss %lv3% (
+            set jv3=%lv3%
             set verSet=1
         )
     )
@@ -309,40 +403,28 @@ if %verSet% == 1 (
     set use64javaNew=%use64java%
 )
 goto :eof
+:getBlackList
+for /f "delims=/ tokens=%cnt%" %%b in ("%verBlackList%") do (
+    if "%%b" equ %JAVA_VERSION% (
+        echo %txt107%%JAVA_VERSION%%txt108%
+        set inBlackList=1
+    ) else (
+        set /a cnt+=1
+        goto getBlackList
+    )
+)
+goto :eof
 
 
 rem Java not found
-:notFind
-set txten=0
-if %searchInInstApp% neq 0 (
-    set txten=1
-    set txt604=system
-    set txt607=installed
-)
-if %searchInCD% neq 0 (
-    set txten=1
-    set txt606=the current directory
-    set txt608=in the same directory under this batch file
-)
-if %searchInCustPath% neq 0 (
-    set txten=1
-    set txt601=the custom path
-    set txt602=in the custom path
-)
-if %txten% == 1 (
-    set txt603=in 
-    set txt609=make sure it's 
-) else set txt609=All search for Java have been disabled, please check the "config.txt"
-if %searchInInstApp% neq 0 if %searchInCD% neq 0 set txt605= or 
-if %searchInCustPath% neq 0 if %searchInInstApp% neq 0 set txt600= or 
-if %searchInCustPath% neq 0 if %searchInCD% neq 0 set txt600= or 
-echo %txt201%%exclude%%txt603%%txt601%%txt600%%txt604%%txt605%%txt606%%txt202%%cma%%txt203%%txt609%%txt602%%txt600%%txt607%%txt605%%txt608%%prd%
-goto baterror
+:javaNotFound
+echo %txt201%%exclude%%prd%
+goto error
 
 
-:checkOther
+:selectJava
 if "%java8Path%" == "none" (
-    if "%javaNewPath%" == "none" (goto notFind) else (
+    if "%javaNewPath%" == "none" (goto javaNotFound) else (
         echo Java %txt301% %javaNewVer%%txt302% "%javaNewPath%"%prd%
         set "javaPath=%javaNewPath%"
         set use64java=%use64javaNew%
@@ -354,7 +436,7 @@ if "%java8Path%" == "none" (
 )
 
 
-:loadOther
+:restoreSomething
 set rth1=dependencies\windows-x86
 set rth2=\openjfx\
 set conDir=%userprofile%\AppData\Roaming\.hmcl\
@@ -385,9 +467,8 @@ if %restoreRunTime% geq 1 (
 if %use64java% == 1 (set rthw=_64) else if %use64java% == 0 (set rthm=-x86) else (
     echo %txt505%
     echo %txt506%
-    goto baterror
+    goto error
 )
-set fileQuantity=5
 set srcPath=.\%rth1%%rthw%%rth2%
 set trgPath=%conDir%%rth1%%rthw%%rth2%
 if %hmclVer% LSS 35322900 (
@@ -397,13 +478,18 @@ if %hmclVer% LSS 35322900 (
         set trgPath=%conDir%dependencies\
         if %hmclVer% LSS 34202000 (set fileName=javafx-*-16-win%rthm%.jar) else (set fileName=javafx-*-17-win%rthm%.jar)
     ) else (set fileName=javafx-*-17.0.2-win%rthm%.jar)
-) else (set fileName=javafx-*-19.0.2.1-win%rthm%.jar)
+) else (
+    set fileQuantity=5
+    set fileName=javafx-*-19.0.2.1-win%rthm%.jar
+)
 set srcQuantity=0
 for /f "tokens=*" %%i in ('dir /b %srcPath%%fileName%') do set /a srcQuantity+=1
 set trgQuantity=0
 for /f "tokens=*" %%i in ('dir /b %trgPath%%fileName%') do set /a trgQuantity+=1
 if %restoreRunTime% == 2 call :restoreRT
-goto beforeStart
+if %showHMCLlog% == 0 goto beforeStart
+"%javaPath%\bin\java.exe" -jar %hmclPath%
+goto afterExit
 
 
 :restoreRT
@@ -422,29 +508,19 @@ goto :eof
 
 :beforeStart
 echo %txt701%
-mshta vbscript:createobject("wscript.shell").run("""%~nx0"" h",0)(window.close)
-exit
+mshta vbscript:createobject("wscript.shell").run("""%~nx0"" up",0)(window.close)
+goto end
 
 
-:baterror
-title %txt000%%txt702%
-color 4e
-echo %txt703%...
-if exist .\tmp del .\tmp
-pause>nul
-color
-exit
-
-
-:begin
-if exist .\tmp del .\tmp
+:launch
 "%javaPath%\bin\java.exe" -jar %hmclPath%
-start %~nx0 j
-color
-exit
+start %~nx0 backup
+goto end
 
 
-:backup
+:afterExit
+echo .
+echo %txt709%
 if %backupRunTime% == 2 (
     echo %txt706%...
     if %srcQuantity% neq %fileQuantity% xcopy /s /y %trgPath%%fileName% %srcPath%
@@ -452,12 +528,14 @@ if %backupRunTime% == 2 (
 )
 if %backupGlobalConfig% == 2 call :backupGC
 if %backupGlobalConfig% == 1 (
-    mode con cols=90 lines=5
-    echo .
-    echo .
-    echo %txt704%...
-    pause>nul
-    call :backupGC
+    if %showHMCLlog% == 0 (
+        mode con cols=90 lines=5
+        echo .
+        echo .
+        echo %txt704%...
+        pause>nul
+        call :backupGC
+    ) else call :backupGCSelect
 )
 if %removeGlobalConfig% == 2 (
     del %conDir%accounts.json
@@ -469,11 +547,31 @@ if %removeRunTime% == 2 (
 )
 if %removeJavaFX% == 1 del %trgPath%%fileName%
 if %removeAuthLib% == 1 del %conDir%authlib-injector.jar
-exit
+if %showHMCLlog% == 0 exit
+goto end
 
 
+:backupGCSelect
+set gc=n
+set /p gc=%txt707%
+if %gc% neq y (
+    echo %txt708%
+    goto :eof
+)
 :backupGC
 echo %txt705%...
 xcopy /s /y %conDir%accounts.json .\globalConfig\
 xcopy /s /y %conDir%config.json .\globalConfig\
 goto :eof
+
+
+rem When cause error
+:error
+title %txt000%%txt702%
+color 4e
+echo %txt703%...
+pause>nul
+color
+
+
+:end
