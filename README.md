@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive\
 English [简体中文](README-SC.md) [Documents](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/en.js)\
-Latest version：3.5.3.229 Update 1
+Latest version：3.5.3.229 Update 3 (Tested 3.5.5 can be use)
 ## HHML introduce
 Hello HMCL! Launcher（below referred to as HHML）is a command script (support Windows only now), look from the name, this is a launcher written for the launcher.\
 This script use to resolve the HMCL launcher (Hello Minecraft! Launcher) put some related config file and runtime to user directory in system, resulting in the need for reconfiguration on another system. The script will restore the downloaded runtime and global to user directory in system and back it up when exiting.\
@@ -108,6 +108,17 @@ Configuration name: searchInCD\
 Default parameter: 2\
 Java found in this range will add to temporary environment variable so that HMCL to detect it.\
 \
+**Search %PATH% environment variable**\
+Configuration name: searchInSysPath\
+Default parameter: 1\
+If you installed Java that can't be detected by HMCL, you can set the parameter of this configuration to 2.\
+\
+**Search JavaSoft registry**\
+Configuration name: searchInSysPath\
+Default parameter: 1\
+Note: This is specific registry item of Oricle official Java, so OpenJDK may can't be found in this range.\
+If you installed Java that can't be detected by HMCL, you can set the parameter of this configuration to 2, Java found in this range will add to temporary environment variable so that HMCL to detect it.\
+\
 **Search list of installed application**\
 Configuration name: searchInInstApp
 Default parameter: 1
@@ -146,9 +157,9 @@ Parameter:
 \
 **Exclude some versions of Java (only valid when parameter of checkJava is 2)**\
 Configuration name: verBlackList\
-Usage: enter unwanted version number in the parameter (can be multiple, use comma to separated between each version), corresponding version will be excluded during version detecting.\
+Usage: enter unwanted version number in the parameter (can be multiple, use slash character "/" to separated between each version), corresponding version will be excluded during version detecting.\
 Default parameter: none\
 Parameter demo:
 ```
-verBlackList=1.8.0_272,17.0.1
+verBlackList=1.8.0_272/17.0.1/11.0.2
 ```
