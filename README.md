@@ -11,7 +11,7 @@ in addition, the HHML can also make HMCL detect and auto select Java under the c
 Windows Chinese simplified editon: [HHML-SC-GB2312.bat](https://bugteas.github.io/HHML/Windows/HHML-SC-GB2312.bat)\
 Windows English editon: [HHML-EN.bat](https://bugteas.github.io/HHML/Windows/HHML-EN.bat)\
 if you using a non-Chinese simplified Windows or UTF-8 global language support has been enabled, please select the English edition, Otherwise garbled characters will appear, even cause errors!
-2. put the HMCL JAR file and HHML script and unzipped java archive (multiple different versions can be placed) in the same directory (can be on a flash drive or hard disk)
+2. put the HMCL JAR file and HHML script and unzipped java archive (multiple different versions can be placed, directory structure is not limit) in the same directory (can be on a flash drive or hard disk)
 3. run the HHML script, the script will secrch all Java archive in current directory automatic and pick the latest Java version to launch HMCL JAR file, soon the interface of HMCL will appear, but sometime also it's download runtimes (JavaFX) automatic, it puts it in the system by default, it is very troublesome to download it again after changing computers. So HHML can back it up to current directory in preparation for restoring to the system on another computer, saving time to download again.
 4. With the help of HHML script, the HMCL not only can search installed Java in the system automatic, but also can search unzipped Java in current directory automatic. This mains you don't need to manually add a non-installed Java version path to custom path (unlike PCL2, only one custom Java path can be added in HMCL)
 5. After that, you should launch HMCL via the HHML script instead of opening the JAR file directly. To speed up the game startup, you can enable "Do not check game integrity" option in advanced settings, because the intergrity check before the game launch requires a large amount of data to be copied to the system disk, if the game is on a flash disk, it will take a lot of time to complete this step.
@@ -32,6 +32,15 @@ backupGlobalConfig=0
 checkJava=0
 use64java=1
 ```
+### Output/hide HMCL log
+By default, the log output will be stopped after HMCL launched by script. It make HMCL log not visible.\
+Configuration name: showHMCLlog\
+Parameter:
+```
+0: Not output HMCL log (still output HHML log during loading)
+1: Output HMCL log under the current command line window
+```
+Default parameter: 0
 ### Auto backup/restore/remove configuration
 Note: runtime here refers to AuthLib-Injector (external login dependencies) and Java FX (graphic interface dependencies), while global config here refers to config.json (user license) and accounts.json (global user list).\
 If you want to use HHML script in hard disk, you definitely don't want HHML auto backup/restore/remove the runtime and the globel configuration. They are all located at user directory in system, since it's all on the hard drive, and don't have to change computers, is it still need to backup?\
@@ -39,7 +48,7 @@ So I provided some option about backup/restore/remove (they all parameter is 1):
 \
 **Restore runtime**\
 Configuration name: restoreRunTime\
-parameter:
+Parameter:
 ```
 0: Never restore
 1: Restore AuthLib，restore JavaFX if Java version is 11 or later and HMCL version is 3.3.183 or later
@@ -48,7 +57,7 @@ parameter:
 \
 **Backup runtime**\
 Configuration name: backupRunTime\
-parameter:
+Parameter:
 ```
 0: Never backup
 1: backup when "restoreRunTime" is enabled and need download runtime by HMCL. 
@@ -57,7 +66,7 @@ parameter:
 \
 **Remove runtime**\
 Configuration name: removeRunTime\
-parameter:
+Parameter:
 ```
 0: Never remove
 1: Remove if they are both restored
@@ -66,7 +75,7 @@ parameter:
 \
 **Restore global config**\
 Configuration name: restoreRunTime\
-parameter:
+Parameter:
 ```
 0: Never restore
 1: Restore if they are both found in user directory in system
@@ -75,7 +84,7 @@ parameter:
 \
 **Backup global config**\
 Configuration name: backupRunTime\
-parameter:
+Parameter:
 ```
 0: Never backup
 1: If they already exist before launch, a pop-up window after the HMCL is closed allows the user to confirm whether to backup, otherwise the backup is automatically available
@@ -84,7 +93,7 @@ parameter:
 \
 **Remove global config**\
 Configuration name: removeRunTime\
-parameter:
+Parameter:
 ```
 0: Never remove
 1: Remove if it already restore
@@ -99,11 +108,13 @@ You can set up script search in some range through this configuration, all param
 2: Always search (even if Java has been found)
 ```
 **Search custom path**\
+Each line of Java path searched in "customPath.txt" under the same directory as the script.\
 Configuration name: searchInCustPath\
 Default parameter: 2\
 Java found in this range will add to temporary environment variable so that HMCL to detect it.\
 \
 **Search current directory**\
+Search Java directory under the same directory as the script.\
 Configuration name: searchInCD\
 Default parameter: 2\
 Java found in this range will add to temporary environment variable so that HMCL to detect it.\
