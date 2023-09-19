@@ -157,9 +157,9 @@ Parameter:
 \
 **Exclude some versions of Java (only valid when parameter of checkJava is 2)**\
 Configuration name: verBlackList\
-Usage: enter unwanted version number in the parameter (can be multiple, use slash character "/" to separated between each version), corresponding version will be excluded during version detecting.\
+Usage: enter unwanted version number in the parameter (can be multiple, use comma "," to separated between each version), corresponding version will be excluded during version detecting.\
 Default parameter: none\
 Parameter demo:
 ```
-verBlackList=1.8.0_272/17.0.1/11.0.2
+verBlackList=1.8.0_272,17.0.1,11.0.2
 ```
