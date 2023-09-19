@@ -11,13 +11,13 @@ Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支�
 Windows 中文版：[HHML-SC-GB2312.bat](https://bugteas.github.io/HHML/Windows/HHML-SC-GB2312.bat)\
 Windows 英文版：[HHML-EN.bat](https://bugteas.github.io/HHML/Windows/HHML-EN.bat)\
 如果你使用非简体中文版 Windows 或启用了 UTF-8 全球语言支持，请选择英文版，否则会出现乱码甚至报错！
-2. 将脚本、解压出来的 Java 文件夹（可同时放置多个版本）和 HMCL 放到同一目录下（可以位于硬盘或U盘中）
+2. 将脚本、从压缩包版本的 Java 中解压出来的文件夹（可同时放置多个版本，文件夹结构不限）和 HMCL 放到同一目录下（可以位于硬盘或U盘中）
 3. 运行 HHML 脚本，脚本会自动搜索当前目录下的 Java 并挑选出最新版本来启动 JAR 格式的 HMCL，很快HMCL 的界面就会出现，但有时也会自动下载运行时（JavaFX），它将其放到了系统用户目录下，更换电脑后要重新下载，非常麻烦。所以 HHML 脚本会将其备份到当前目录下以备更换电脑时还原，节省了下载的时间。
 4. 在 HHML 的帮助下，HMCL 不仅能自动搜索安装在系统中的 Java 还能自动搜索位于当前目录下的 Java。这意味着你不再需要手动为非安装版 Java 添加自定义路径（不像 PCL2，HMCL 只能添加一个自定义 Java 路径）
 5. 此后，你应该使用 HHML 脚本来启动 HMCL，而不是直接打开 JAR 文件。为了提升启动速度，你可以在 HMCL 的高级设置中启用“不检查游戏完整性”选项，因为游戏启动前的完整性检查会将大量数据复制到系统磁盘，如果游戏在U盘上，这将耗费大量时间来完成此步骤。
 ## 高级用法
 ### 自定义 Java 路径（可使用相对路径）
-在脚本所在目录下创建一个名为“customPath.txt”的文本文档。内容是一行一个路径，就像这样：
+在脚本所在目录下创建一个名为“customPath.txt”的文本文档。内容是一行一个路径（可以是相对路径，也支持带空格的文件夹名称），就像这样：
 ```
 C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-64
 .\..\..\jdk\jdk-11.0.12
@@ -33,6 +33,16 @@ backupGlobalConfig=0
 checkJava=0
 use64java=1
 ```
+
+### 输出/隐藏 HMCL 日志
+默认情况下，在脚本完成启动 HMCL 后会停止日志输出，这将使 HMCL 日志不可见。\
+配置名：showHMCLlog\
+参数：
+```
+0: 不输出 HMCL 日志（HHML 加载日志照常输出）
+1: 在当前命令行窗口下输出 HMCL 日志
+```
+默认参数：0
 
 ### 自动备份/还原/删除配置
 注意：这里的运行时指的是 AuthLib-Injector（外置登录依赖）和 JavaFX（图形界面依赖），而全局配置指的是 config.json（用户许可）和 accounts.json（全局账户列表）。
@@ -103,11 +113,13 @@ use64java=1
 2: 总是搜索此范围（即使 Java 已经找到）
 ```
 **搜索自定义路径**\
+搜索位于脚本所在目录下的“customPath.txt”中的每行 Java 路径。\
 配置名：searchInCustPath\
 默认参数：2\
 在此范围找到的 Java 会被添加到临时环境变量中，以便 HMCL 检测到。\
 \
 **搜索当前目录**\
+搜索脚本所在目录下的 Java 文件夹。\
 配置名：searchInCD\
 默认参数：2\
 在此范围找到的 Java 会被添加到临时环境变量中，以便 HMCL 检测到。\
