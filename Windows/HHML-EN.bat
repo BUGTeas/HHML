@@ -77,14 +77,7 @@ set showHMCLlog=0
 
 rem Show excluded items
 for /f "tokens=*" %%a in (config.txt) do if "%%a" neq "" set %%a
-set excStatus=0
-if %verBlackList% neq none (
-    set /a excStatus+=1
-    echo %excStatus%
-    set txt013=%verBlackList%
-)
-if %excStatus% == 2 set txt012= and 
-if %excStatus% neq 0 set exclude=%txt001% %txt011%%txt012%%txt013%%gb% 
+if "%verBlackList%" neq "none" set exclude=%txt001% %verBlackList%%gb%
 
 
 rem Search HMCL in the current directory
@@ -404,7 +397,7 @@ if %verSet% == 1 (
 )
 goto :eof
 :getBlackList
-for /f "delims=/ tokens=%cnt%" %%b in ("%verBlackList%") do (
+for /f "delims=, tokens=%cnt%" %%b in ("%verBlackList%") do (
     if "%%b" equ %JAVA_VERSION% (
         echo %txt107%%JAVA_VERSION%%txt108%
         set inBlackList=1
