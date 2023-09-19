@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 在U盘上运行 HMCL 的绝佳方案\
 [English](README.md) 简体中文 [文档](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/cn.js)\
-最新版本：3.5.3.229 Update 3
+最新版本：3.5.3.229 Update 3（经测试 3.5.5 可使用）
 ## HHML 介绍
 Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支持 Windows），从名称上看，它就是一个给启动器写的启动器，禁止套娃（\
 该脚本用于解决 HMCL 启动器（Hello Minecraft! Launcher）将相关配置文件和运行时放在系统用户目录下（Windows 下为“%userprofile%\AppData\Roaming.hmcl”），导致将其放在U盘中更换电脑后又要重新配置的问题。在 HMCL 启动前，脚本会将当前目录下的配置文件和已经下载的运行时还原到系统用户目录下，退出后再将其备份。\
