@@ -17,7 +17,7 @@ if you using a non-Chinese simplified Windows or UTF-8 global language support h
 5. After that, you should launch HMCL via the HHML script instead of opening the JAR file directly. To speed up the game startup, you can enable "Do not check game integrity" option in advanced settings, because the intergrity check before the game launch requires a large amount of data to be copied to the system disk, if the game is on a flash disk, it will take a lot of time to complete this step.
 ## Advanced usage
 ### Custom Java path (relative path can be used)
-Create a text file under the same directory as the script and named "customPath.txt". The text content is one Java path per line, like this:
+Create a text file under the same directory as the script and named "customPath.txt". The text content is one Java path per line (relative path can be used, directory name with spaces are also supported), like this:
 ```
 C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-64
 .\..\..\jdk\jdk-11.0.12
