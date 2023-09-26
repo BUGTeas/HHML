@@ -5,49 +5,49 @@ if "%1" == "backup" goto afterExit
 setlocal enabledelayedexpansion
 
 rem Language config
-set prd=¡£
-set lb=£¨
-set gb=£©
-set cma=£¬
-set cln=£º
-set txt000=Hello HMCL! Launcher v3.5.3.225 ¸üĞÂ 3
-set txt001=£¨ÅÅ³ı
-set txt002=ÕıÔÚ´Óµ±Ç°Ä¿Â¼ÏÂÑ°ÕÒ HMCL£¨JAR£©ÎÄ¼ş
-set txt003=µ±Ç°Ä¿Â¼ÏÂÕÒ²»µ½¿ÉÓÃµÄ HMCL£¬ÇëÈ·±£ËüÎ»ÓÚ´ËÅú´¦ÀíÏÂµÄÍ¬Ò»Ä¿Â¼ÇÒÃû³Æ¸ñÊ½Îª¡°HMCL-^^^<°æ±¾ºÅ^^^>.jar¡±¡£
-set txt004=ÒÑÕÒµ½ HMCL£¬ÃûÎª
-set txt005=£¬°æ±¾ºÅÎª
-set txt006=£¨ÒÑ×ª»»ÎªÕûÊı£©
-set txt100=Java Â·¾¶Îª
-set txt101=ÕıÔÚ´ÓÏµÍ³ÖĞÑ°ÕÒ Java
-set txt102=ÕıÔÚ´Óµ±Ç°Ä¿Â¼ÏÂÑ°ÕÒ Java
-set txt103=ÒÑ¼ì²âµ½
-set txt104=ÕıÔÚ´Ó×Ô¶¨ÒåÂ·¾¶ÏÂÑ°ÕÒ Java
-set txt105=Î» 
-set txt201=ÕÒ²»µ½¿ÉÓÃµÄ Java
+set prd=ã€‚
+set lb=ï¼ˆ
+set gb=ï¼‰
+set cma=ï¼Œ
+set cln=ï¼š
+set txt000=Hello HMCL! Launcher v3.5.3.225 æ›´æ–° 3
+set txt001=ï¼ˆæ’é™¤
+set txt002=æ­£åœ¨ä»å½“å‰ç›®å½•ä¸‹å¯»æ‰¾ HMCLï¼ˆJARï¼‰æ–‡ä»¶
+set txt003=å½“å‰ç›®å½•ä¸‹æ‰¾ä¸åˆ°å¯ç”¨çš„ HMCLï¼Œè¯·ç¡®ä¿å®ƒä½äºæ­¤æ‰¹å¤„ç†ä¸‹çš„åŒä¸€ç›®å½•ä¸”åç§°æ ¼å¼ä¸ºâ€œHMCL-^^^<ç‰ˆæœ¬å·^^^>.jarâ€ã€‚
+set txt004=å·²æ‰¾åˆ° HMCLï¼Œåä¸º
+set txt005=ï¼Œç‰ˆæœ¬å·ä¸º
+set txt006=ï¼ˆå·²è½¬æ¢ä¸ºæ•´æ•°ï¼‰
+set txt100=Java è·¯å¾„ä¸º
+set txt101=æ­£åœ¨ä»ç³»ç»Ÿä¸­å¯»æ‰¾ Java
+set txt102=æ­£åœ¨ä»å½“å‰ç›®å½•ä¸‹å¯»æ‰¾ Java
+set txt103=å·²æ£€æµ‹åˆ°
+set txt104=æ­£åœ¨ä»è‡ªå®šä¹‰è·¯å¾„ä¸‹å¯»æ‰¾ Java
+set txt105=ä½ 
+set txt201=æ‰¾ä¸åˆ°å¯ç”¨çš„ Java
 set txt202=
 set txt203=
-set txt301=½«±»Ê¹ÓÃ£¬°æ±¾ºÅÎª
-set txt302=£¬Â·¾¶Îª
-set txt501=ÕıÔÚ»¹Ô­È«¾ÖÅäÖÃ
-set txt502=ÕıÔÚ»¹Ô­ÍâÖÃµÇÂ¼ÒÀÀµ
-set txt503=ÕıÔÚ»¹Ô­ÔËĞĞÊ±×é¼ş
-set txt504=ÕÒ²»µ½ÊÊÓÃÓÚµ±Ç° HMCL °æ±¾µÄÔËĞĞÊ±×é¼ş£¬½«ÓÉ HMCL ×Ô¶¯ÏÂÔØ£¨¾ÍÕâÒ»´Î£©¡£µ± HMCL ÍË³öÊ±£¬»á×Ô¶¯½«Æä¸´ÖÆµ½´ËÒÔ±¸ÏÂ´ÎÆô¶¯¡£
-set txt505=ÎŞ·¨×Ô¶¯±¸·İ/»¹Ô­/É¾³ıÔËĞĞÊ±×é¼ş£¬ÒòÎªÎ´Öª Java µÄÎ»¿í¡£
-set txt506=Çë¼ì²é Java µÄÎ»¿í£¨32Î»/64Î»£©²¢ÔÚ¡°config.txt¡±ÎÄ¼şÖĞÅäÖÃ¡°use64java¡±²ÎÊıÎª0/1¡£
-set txt701=ÕıÔÚ³¢ÊÔÒş²Ø Shell...
-set txt702=£¨´íÎó£©
-set txt703=°´ÈÎÒâ¼üÍË³ö
-set txt704=°´ÈÎÒâ¼ü±¸·İµ±Ç°È«¾ÖÅäÖÃ£¬¹Ø±Õ´°¿ÚÔòÈ¡Ïû
-set txt705=ÕıÔÚ¸´ÖÆµ±Ç°È«¾ÖÅäÖÃÒÔ±¸ÏÂ´ÎÆô¶¯
-set txt706=ÕıÔÚ¸´ÖÆÔËĞĞÊ±×é¼şÒÔ±¸ÏÂ´ÎÆô¶¯
+set txt301=å°†è¢«ä½¿ç”¨ï¼Œç‰ˆæœ¬å·ä¸º
+set txt302=ï¼Œè·¯å¾„ä¸º
+set txt501=æ­£åœ¨è¿˜åŸå…¨å±€é…ç½®
+set txt502=æ­£åœ¨è¿˜åŸå¤–ç½®ç™»å½•ä¾èµ–
+set txt503=æ­£åœ¨è¿˜åŸè¿è¡Œæ—¶ç»„ä»¶
+set txt504=æ‰¾ä¸åˆ°é€‚ç”¨äºå½“å‰ HMCL ç‰ˆæœ¬çš„è¿è¡Œæ—¶ç»„ä»¶ï¼Œå°†ç”± HMCL è‡ªåŠ¨ä¸‹è½½ï¼ˆå°±è¿™ä¸€æ¬¡ï¼‰ã€‚å½“ HMCL é€€å‡ºæ—¶ï¼Œä¼šè‡ªåŠ¨å°†å…¶å¤åˆ¶åˆ°æ­¤ä»¥å¤‡ä¸‹æ¬¡å¯åŠ¨ã€‚
+set txt505=æ— æ³•è‡ªåŠ¨å¤‡ä»½/è¿˜åŸ/åˆ é™¤è¿è¡Œæ—¶ç»„ä»¶ï¼Œå› ä¸ºæœªçŸ¥ Java çš„ä½å®½ã€‚
+set txt506=è¯·æ£€æŸ¥ Java çš„ä½å®½ï¼ˆ32ä½/64ä½ï¼‰å¹¶åœ¨â€œconfig.txtâ€æ–‡ä»¶ä¸­é…ç½®â€œuse64javaâ€å‚æ•°ä¸º0/1ã€‚
+set txt701=æ­£åœ¨å°è¯•éšè— Shell...
+set txt702=ï¼ˆé”™è¯¯ï¼‰
+set txt703=æŒ‰ä»»æ„é”®é€€å‡º
+set txt704=æŒ‰ä»»æ„é”®å¤‡ä»½å½“å‰å…¨å±€é…ç½®ï¼Œå…³é—­çª—å£åˆ™å–æ¶ˆ
+set txt705=æ­£åœ¨å¤åˆ¶å½“å‰å…¨å±€é…ç½®ä»¥å¤‡ä¸‹æ¬¡å¯åŠ¨
+set txt706=æ­£åœ¨å¤åˆ¶è¿è¡Œæ—¶ç»„ä»¶ä»¥å¤‡ä¸‹æ¬¡å¯åŠ¨
 
-set txt106=ÕıÔÚ´Ó JavaSoft ×¢²á±íÖĞÑ°ÕÒ Java
-set txt109=ÕıÔÚ´Ó %%PATH%% »·¾³±äÁ¿ÖĞÑ°ÕÒ Java
-set txt107=°æ±¾ 
-set txt108= ÔÚºÚÃûµ¥ÖĞ£¬½«±»Ìø¹ı¡£
-set txt707=Èç¹ûÄãÏë±¸·İµ±Ç°È«¾ÖÅäÖÃ£¬ÇëÊäÈë¡°y¡°È»ºó°´ÏÂ»Ø³µ£º
-set txt708=Õâ´Î½«²»±¸·İµ±Ç°È«¾ÖÅäÖÃ¡£
-set txt709=HMCL ÒÑÍË³ö¡£
+set txt106=æ­£åœ¨ä» JavaSoft æ³¨å†Œè¡¨ä¸­å¯»æ‰¾ Java
+set txt109=æ­£åœ¨ä» %%PATH%% ç¯å¢ƒå˜é‡ä¸­å¯»æ‰¾ Java
+set txt107=ç‰ˆæœ¬ 
+set txt108= åœ¨é»‘åå•ä¸­ï¼Œå°†è¢«è·³è¿‡ã€‚ï¼ˆå¦‚æœå®ƒå®‰è£…åœ¨ç³»ç»Ÿä¸­ï¼ŒHMCL å¯èƒ½ç»•è¿‡é»‘åå•ä»è€Œæ£€æµ‹åˆ°å®ƒï¼‰
+set txt707=å¦‚æœä½ æƒ³å¤‡ä»½å½“å‰å…¨å±€é…ç½®ï¼Œè¯·è¾“å…¥â€œyâ€œç„¶åæŒ‰ä¸‹å›è½¦ï¼š
+set txt708=è¿™æ¬¡å°†ä¸å¤‡ä»½å½“å‰å…¨å±€é…ç½®ã€‚
+set txt709=HMCL å·²é€€å‡ºã€‚
 
 
 echo %txt000%
@@ -63,8 +63,8 @@ set removeGlobalConfig=1
 rem Default Java lookup configuration
 set searchInCustPath=2
 set searchInCD=2
-set searchInSysPath=1
-set searchInJavaReg=1
+set searchInSysPath=2
+set searchInJavaReg=2
 set searchInInstApp=1
 rem Default Java check configuration
 set checkJava=2
@@ -160,10 +160,10 @@ set ssp=%searchInSysPath%
 set sjr=%searchInJavaReg%
 set sia=%searchInInstApp%
 call :checkPath
-if %scp% == 2 call :findCustJava
-if %scd% == 2 call :findCDJava
 if %ssp% == 2 call :findPathJava
 if %sjr% == 2 call :findJavaReg
+if %scp% == 2 call :findCustJava
+if %scd% == 2 call :findCDJava
 if %sia% == 2 call :findInstJava
 if %checkJava% == 1 call :testJava
 if %checkJava% geq 1 (
@@ -202,8 +202,7 @@ set lastcd="%cd%"
 for /f "tokens=*" %%i in (customPath.txt) do (
     if exist "%%i\bin\java.exe" (
         set javaPath=%%i
-        call :addPath
-        if %checkJava% == 2 call :testJava
+        if %checkJava% == 2 (call :testJava) else (call :addPath)
     )
 )
 if "%cd%" neq %lastcd% cd %lastcd%
@@ -228,8 +227,7 @@ rem Test Java under the current directory
 :testCDJava
 cd "%sPath%\..\..\"
 set javaPath=%cd%
-call :addPath
-if %checkJava% == 2 call :testJava
+if %checkJava% == 2 (call :testJava) else (call :addPath)
 goto :eof
 
 
@@ -251,7 +249,9 @@ if "%cd%" neq %lastcd% cd %lastcd%
 goto :eof
 :existPathJava
 set javaPath=%cd%
+set inPathvar=6
 if %checkJava% == 2 call :testJava
+set inPathvar=
 goto :eof
 
 
@@ -276,8 +276,7 @@ rem Test Java in JavaSoft registry
 :getJavaRegPath
 if exist "%instPath:~22%\bin\java.exe" (
     set javaPath=%instPath:~22%
-    call :addPath
-    if %checkJava% == 2 call :testJava
+    if %checkJava% == 2 (call :testJava) else (call :addPath)
 )
 goto :eof
 
@@ -321,8 +320,7 @@ rem Test Java under the installation path
 :getInstPath
 if exist "%instPath:~29%bin\java.exe" (
     set javaPath=%instPath:~29%
-    call :addPath
-    if %checkJava% == 2 call :testJava
+    if %checkJava% == 2 (call :testJava) else (call :addPath)
 )
 goto :eof
 
@@ -350,9 +348,10 @@ set cnt=1
 set inBlackList=0
 call :getBlackList
 if %inBlackList% equ 1 goto :eof
+if %checkJava% == 2 if "%inPathvar%" == "" call :addPath
 set ver=%JAVA_VERSION:_= %
 set ver=%ver:"=%
-rem Get subversion number behind the underline of old version number format£¨1.x.0_xxx£©
+rem Get subversion number behind the underline of old version number formatï¼ˆ1.x.0_xxxï¼‰
 set sv8=0
 for /f "tokens=2" %%i in ("%ver%") do set sv8=%%i
 set sv8=%sv8:-= %
@@ -433,11 +432,12 @@ if "%java8Path%" == "none" (
 set rth1=dependencies\windows-x86
 set rth2=\openjfx\
 set conDir=%userprofile%\AppData\Roaming\.hmcl\
-if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json if not exist %conDir%accounts.json set restoreGlobalConfig=2
+rem if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json if not exist %conDir%accounts.json set restoreGlobalConfig=2
+if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json set restoreGlobalConfig=2
 if %restoreGlobalConfig% == 2 (
     if exist .\globalConfig\ (
         echo %txt501%...
-        xcopy /s /y .\globalConfig\accounts.json %conDir%
+        rem xcopy /s /y .\globalConfig\accounts.json %conDir%
         xcopy /s /y .\globalConfig\config.json %conDir%
     )
     if %backupGlobalConfig% == 1 set backupGlobalConfig=2
@@ -520,18 +520,18 @@ if %backupRunTime% == 2 (
     if not exist .\dependencies\authlib-injector.jar xcopy /s %conDir%authlib-injector.jar .\dependencies\
 )
 if %backupGlobalConfig% == 2 call :backupGC
-if %backupGlobalConfig% == 1 (
-    if %showHMCLlog% == 0 (
-        mode con cols=90 lines=5
-        echo .
-        echo .
-        echo %txt704%...
-        pause>nul
-        call :backupGC
-    ) else call :backupGCSelect
-)
+rem if %backupGlobalConfig% == 1 (
+rem     if %showHMCLlog% == 0 (
+rem         mode con cols=90 lines=5
+rem         echo .
+rem         echo .
+rem         echo %txt704%...
+rem         pause>nul
+rem         call :backupGC
+rem     ) else call :backupGCSelect
+rem )
 if %removeGlobalConfig% == 2 (
-    del %conDir%accounts.json
+    rem del %conDir%accounts.json
     del %conDir%config.json
 )
 if %removeRunTime% == 2 (

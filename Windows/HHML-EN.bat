@@ -44,7 +44,7 @@ set txt706=Backing up runtime module for next boot
 set txt106=Looking for Java in JavaSoft registry
 set txt109=Looking for Java in %%PATH%% environment variable
 set txt107=Version 
-set txt108= is in the black list, will skip it.
+set txt108= is in the black list, will skip it. ^^(If it is installed in system, HMCL may bypass the blacklist and detect it^^)
 set txt707=If you want to backup the current global config, input ^"y^" and press Enter key: 
 set txt708=Will not backup the current global config this time.
 set txt709=HMCL has exited.
@@ -63,8 +63,8 @@ set removeGlobalConfig=1
 rem Default Java lookup configuration
 set searchInCustPath=2
 set searchInCD=2
-set searchInSysPath=1
-set searchInJavaReg=1
+set searchInSysPath=2
+set searchInJavaReg=2
 set searchInInstApp=1
 rem Default Java check configuration
 set checkJava=2
@@ -160,10 +160,10 @@ set ssp=%searchInSysPath%
 set sjr=%searchInJavaReg%
 set sia=%searchInInstApp%
 call :checkPath
-if %scp% == 2 call :findCustJava
-if %scd% == 2 call :findCDJava
 if %ssp% == 2 call :findPathJava
 if %sjr% == 2 call :findJavaReg
+if %scp% == 2 call :findCustJava
+if %scd% == 2 call :findCDJava
 if %sia% == 2 call :findInstJava
 if %checkJava% == 1 call :testJava
 if %checkJava% geq 1 (
@@ -202,8 +202,7 @@ set lastcd="%cd%"
 for /f "tokens=*" %%i in (customPath.txt) do (
     if exist "%%i\bin\java.exe" (
         set javaPath=%%i
-        call :addPath
-        if %checkJava% == 2 call :testJava
+        if %checkJava% == 2 (call :testJava) else (call :addPath)
     )
 )
 if "%cd%" neq %lastcd% cd %lastcd%
@@ -228,8 +227,7 @@ rem Test Java under the current directory
 :testCDJava
 cd "%sPath%\..\..\"
 set javaPath=%cd%
-call :addPath
-if %checkJava% == 2 call :testJava
+if %checkJava% == 2 (call :testJava) else (call :addPath)
 goto :eof
 
 
@@ -251,7 +249,9 @@ if "%cd%" neq %lastcd% cd %lastcd%
 goto :eof
 :existPathJava
 set javaPath=%cd%
+set inPathvar=6
 if %checkJava% == 2 call :testJava
+set inPathvar=
 goto :eof
 
 
@@ -276,8 +276,7 @@ rem Test Java in JavaSoft registry
 :getJavaRegPath
 if exist "%instPath:~22%\bin\java.exe" (
     set javaPath=%instPath:~22%
-    call :addPath
-    if %checkJava% == 2 call :testJava
+    if %checkJava% == 2 (call :testJava) else (call :addPath)
 )
 goto :eof
 
@@ -321,8 +320,7 @@ rem Test Java under the installation path
 :getInstPath
 if exist "%instPath:~29%bin\java.exe" (
     set javaPath=%instPath:~29%
-    call :addPath
-    if %checkJava% == 2 call :testJava
+    if %checkJava% == 2 (call :testJava) else (call :addPath)
 )
 goto :eof
 
@@ -350,6 +348,7 @@ set cnt=1
 set inBlackList=0
 call :getBlackList
 if %inBlackList% equ 1 goto :eof
+if %checkJava% == 2 if "%inPathvar%" == "" call :addPath
 set ver=%JAVA_VERSION:_= %
 set ver=%ver:"=%
 rem Get subversion number behind the underline of old version number format（1.x.0_xxx）
@@ -433,11 +432,12 @@ if "%java8Path%" == "none" (
 set rth1=dependencies\windows-x86
 set rth2=\openjfx\
 set conDir=%userprofile%\AppData\Roaming\.hmcl\
-if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json if not exist %conDir%accounts.json set restoreGlobalConfig=2
+rem if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json if not exist %conDir%accounts.json set restoreGlobalConfig=2
+if %restoreGlobalConfig% geq 1 if not exist %conDir%config.json set restoreGlobalConfig=2
 if %restoreGlobalConfig% == 2 (
     if exist .\globalConfig\ (
         echo %txt501%...
-        xcopy /s /y .\globalConfig\accounts.json %conDir%
+        rem xcopy /s /y .\globalConfig\accounts.json %conDir%
         xcopy /s /y .\globalConfig\config.json %conDir%
     )
     if %backupGlobalConfig% == 1 set backupGlobalConfig=2
@@ -520,18 +520,18 @@ if %backupRunTime% == 2 (
     if not exist .\dependencies\authlib-injector.jar xcopy /s %conDir%authlib-injector.jar .\dependencies\
 )
 if %backupGlobalConfig% == 2 call :backupGC
-if %backupGlobalConfig% == 1 (
-    if %showHMCLlog% == 0 (
-        mode con cols=90 lines=5
-        echo .
-        echo .
-        echo %txt704%...
-        pause>nul
-        call :backupGC
-    ) else call :backupGCSelect
-)
+rem if %backupGlobalConfig% == 1 (
+rem     if %showHMCLlog% == 0 (
+rem         mode con cols=90 lines=5
+rem         echo .
+rem         echo .
+rem         echo %txt704%...
+rem         pause>nul
+rem         call :backupGC
+rem     ) else call :backupGCSelect
+rem )
 if %removeGlobalConfig% == 2 (
-    del %conDir%accounts.json
+    rem del %conDir%accounts.json
     del %conDir%config.json
 )
 if %removeRunTime% == 2 (
