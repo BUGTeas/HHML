@@ -44,7 +44,7 @@ Parameter:
 ```
 Default parameter: 0
 ### Auto backup/restore/remove configuration
-Note: runtime here refers to AuthLib-Injector (external login dependencies) and Java FX (graphic interface dependencies), while global config here refers to config.json (user license) and accounts.json (global user list).\
+Note: runtime here refers to AuthLib-Injector (external login dependencies) and Java FX (graphic interface dependencies), while global config here refers to config.json (user license).\
 If you want to use HHML script in hard disk, you definitely don't want HHML auto backup/restore/remove the runtime and the globel configuration. They are all located at user directory in system, since it's all on the hard drive, and don't have to change computers, is it still need to backup?\
 So I provided some option about backup/restore/remove (they all parameter is 1):\
 \
@@ -89,7 +89,7 @@ Configuration name: backupRunTime\
 Parameter:
 ```
 0: Never backup
-1: If they already exist before launch, a pop-up window after the HMCL is closed allows the user to confirm whether to backup, otherwise the backup is automatically available
+1: Will backup automatically if it is not exist before launch
 2: Always backup without user confirm  (even if it already exists before launch)
 ```
 \
