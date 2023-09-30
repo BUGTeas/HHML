@@ -10,7 +10,7 @@ set lb=（
 set gb=）
 set cma=，
 set cln=：
-set txt000=Hello HMCL! Launcher v3.5.3.225 更新 3
+set txt000=Hello HMCL! Launcher v3.5.3.225 更新 4
 set txt001=（排除
 set txt002=正在从当前目录下寻找 HMCL（JAR）文件
 set txt003=当前目录下找不到可用的 HMCL，请确保它位于此批处理下的同一目录且名称格式为“HMCL-^^^<版本号^^^>.jar”。
@@ -553,7 +553,7 @@ if %gc% neq y (
 )
 :backupGC
 echo %txt705%...
-xcopy /s /y %conDir%accounts.json .\globalConfig\
+rem xcopy /s /y %conDir%accounts.json .\globalConfig\
 xcopy /s /y %conDir%config.json .\globalConfig\
 goto :eof
 

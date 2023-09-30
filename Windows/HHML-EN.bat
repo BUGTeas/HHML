@@ -10,7 +10,7 @@ set lb=^^(
 set gb=^^)
 set cma=, 
 set cln=: 
-set txt000=Hello HMCL! Launcher v3.5.3.229 Update 3
+set txt000=Hello HMCL! Launcher v3.5.3.229 Update 4
 set txt001= ^^(exclude
 set txt002=Looking for HMCL ^^(JAR^^) file in the current directory
 set txt003=No available HMCL found in the current directory, make sure it's in the same directory under this batch file and the name format is ^"HMCL-^<Version number^>.jar^".
@@ -553,7 +553,7 @@ if %gc% neq y (
 )
 :backupGC
 echo %txt705%...
-xcopy /s /y %conDir%accounts.json .\globalConfig\
+rem xcopy /s /y %conDir%accounts.json .\globalConfig\
 xcopy /s /y %conDir%config.json .\globalConfig\
 goto :eof
 
