@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive\
-English [简体中文](README-SC.md) [Documents](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/en.js)\
-Latest version：3.5.3.229 Update 4 (Tested 3.5.5 can be use)
+English [简体中文](README-SC.md) [Pages](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/en.js)\
+Latest version：3.5.3.229 Update 4 (Support HMCL 3.5.5 and older)
 ## HHML introduce
 Hello HMCL! Launcher（below referred to as HHML）is a command script (support Windows only now), look from the name, this is a launcher written for the launcher.\
 This script use to resolve the HMCL launcher (Hello Minecraft! Launcher) cannot search Java in current directory and automatically select Java in custom path. Though this script, you will never need to install Java to system, or add custom Java path manually again, only need to download a Java archive and unzip to launcher directory without installation.\
@@ -18,7 +18,7 @@ if you using a non-Chinese simplified Windows or UTF-8 global language support h
 5. With the help of HHML script, the HMCL not only can search installed Java in the system automatic, but also can search unzipped Java in current directory automatic. This mains you don't need to manually add a non-installed Java version path to custom path (unlike PCL2, only one custom Java path can be added in HMCL)
 6. After that, you should launch HMCL via the HHML script instead of opening the JAR file directly. To speed up the game startup, you can enable "Do not check game integrity" option in advanced settings, because the intergrity check before the game launch requires a large amount of data to be copied to the system disk, if the game is on a flash disk, it will take a lot of time to complete this step.
 ## Advanced usage
-### Custom Java path (relative path can be used)
+### Custom Java path (relative path is available)
 Create a text file under the same directory as the script and named "customPath.txt". The text content is one Java path per line (relative path can be used, directory name with spaces are also supported), like this:
 ```
 C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-64
