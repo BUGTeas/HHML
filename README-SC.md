@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 在U盘上运行 HMCL 的绝佳方案\
-[English](README.md) 简体中文 [文档](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/cn.js)\
-最新版本：3.5.3.229 Update 4（经测试 3.5.5 可使用）
+[English](README.md) 简体中文 [Pages](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/cn.js)\
+最新版本：3.5.3.229 Update 4（支持 3.5.5 及以下版本的 HMCL）
 ## HHML 介绍
 Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支持 Windows），从名称上看，它就是一个给启动器写的启动器，禁止套娃（\
 该脚本用于解决 HMCL 启动器（Hello Minecraft! Launcher）不支持在当前目录下搜索 Java 以及自动选择自定义的路径中的 Java，通过该脚本，你再也不需要将 Java 安装到系统中，或者手动添加自定义 Java 路径，只需要下载一个 Java 的免安装压缩包并解压到启动器目录下即可。\
@@ -25,7 +25,7 @@ C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-6
 .\..\..\jdk\jdk-11.0.12
 \software\jdk\archive\jdk-17.0.8+7
 ```
-注意：Java 路径不是 Java 程序本体所在路径，而是“bin”文件夹所在位置，类似于 JAVA_HOME 变量。\
+注意：Java 路径不是 Java 程序本体所在路径，而是“bin”文件夹所在位置，类似于 JAVA_HOME 变量。
 
 ### 配置文件
 在脚本所在目录下创建一个名为“config.txt”的文本文档。里面不能有空行或注释，格式为“配置=参数”，就像这样：
