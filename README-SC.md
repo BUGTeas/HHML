@@ -1,10 +1,12 @@
 # Hello HMCL! Launcher (HHML)
 在U盘上运行 HMCL 的绝佳方案\
-[English](README.md) 简体中文 [Pages](https://bugteas.github.io/item.html?proFile=1919810/HHMLDocs/cn.js)\
+[English](./README.md) 简体中文 [Pages](https://bugteas.github.io/item.html?proFile=HHML/README-SC.md) [Github](https://github.com/BUGTeas/HHML/)\
 最新版本：3.5.3.229 Update 4（支持 3.5.5 及以下版本的 HMCL）
-## HHML 介绍
-Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支持 Windows），从名称上看，它就是一个给启动器写的启动器，禁止套娃（\
-该脚本用于解决 HMCL 启动器（Hello Minecraft! Launcher）不支持在当前目录下搜索 Java 以及自动选择自定义的路径中的 Java，通过该脚本，你再也不需要将 Java 安装到系统中，或者手动添加自定义 Java 路径，只需要下载一个 Java 的免安装压缩包并解压到启动器目录下即可。\
+### HHML 介绍
+Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支持 Windows），从名称上看，它就是一个给启动器写的启动器，禁止套娃（
+
+该脚本用于解决 HMCL 启动器（Hello Minecraft! Launcher）不支持在当前目录下搜索 Java 以及自动选择自定义的路径中的 Java，通过该脚本，你再也不需要将 Java 安装到系统中，或者手动添加自定义 Java 路径，只需要下载一个 Java 的免安装压缩包并解压到启动器目录下即可。
+
 此外 HHML 脚本还能解决 HMCL 将相关配置文件和运行时放在系统用户目录下（Windows 下为“%userprofile%\\AppData\\Roaming.hmcl”），导致将其放在U盘中更换电脑后又要重新配置的问题（如需要重新接受用户许可）。在 HMCL 启动前，脚本会将当前目录下的配置文件和已经下载的运行时还原到系统用户目录下，退出后再将其备份。
 ## 简单用法
 1. 下载你游玩的MC版本所需的 Java 的压缩包格式（不是安装程序，可以是 OpenJDK）并将其解压，然后从 [HMCL 官方网站](https://hmcl.huangyuhui.net/download/)或官方 [Github 发行版](https://github.com/huanghongxun/HMCL/releases/)上下载 JAR 格式 的 HMCL，再从本仓库的 Github Pages 下载最新版的 HHML 脚本：\
@@ -13,10 +15,11 @@ Windows 中文版：[HHML-SC-GB2312.bat](https://bugteas.github.io/HHML/Windows/
 Windows 英文版：[HHML-EN.bat](https://bugteas.github.io/HHML/Windows/HHML-EN.bat)\
 \
 如果你使用非简体中文版 Windows 或启用了 UTF-8 全球语言支持，请选择英文版，否则会出现乱码甚至报错！
-3. 将脚本、从压缩包版本的 Java 中解压出来的文件夹（可同时放置多个版本，文件夹结构不限）和 HMCL 放到同一目录下（可以位于硬盘或U盘中）
-4. 运行 HHML 脚本，脚本会自动搜索当前目录下的 Java 并挑选出最新版本来启动 JAR 格式的 HMCL，很快HMCL 的界面就会出现，但有时也会自动下载运行时（JavaFX），它将其放到了系统用户目录下，更换电脑后要重新下载，非常麻烦。所以 HHML 脚本会将其备份到当前目录下以备更换电脑时还原，节省了下载的时间。
-5. 在 HHML 的帮助下，HMCL 不仅能自动搜索安装在系统中的 Java 还能自动搜索位于当前目录下的 Java。这意味着你不再需要手动为非安装版 Java 添加自定义路径（不像 PCL2，HMCL 只能添加一个自定义 Java 路径）
-6. 此后，你应该使用 HHML 脚本来启动 HMCL，而不是直接打开 JAR 文件。为了提升启动速度，你可以在 HMCL 的高级设置中启用“不检查游戏完整性”选项，因为游戏启动前的完整性检查会将大量数据复制到系统磁盘，如果游戏在U盘上，这将耗费大量时间来完成此步骤。
+2. 将脚本、从压缩包版本的 Java 中解压出来的文件夹（可同时放置多个版本，文件夹结构不限）和 HMCL 放到同一目录下（可以位于硬盘或U盘中）
+3. 运行 HHML 脚本，脚本会自动搜索当前目录下的 Java 并挑选出最新版本来启动 JAR 格式的 HMCL，很快HMCL 的界面就会出现，但有时也会自动下载运行时（JavaFX），它将其放到了系统用户目录下，更换电脑后要重新下载，非常麻烦。所以 HHML 脚本会将其备份到当前目录下以备更换电脑时还原，节省了下载的时间。
+4. 在 HHML 的帮助下，HMCL 不仅能自动搜索安装在系统中的 Java 还能自动搜索位于当前目录下的 Java。这意味着你不再需要手动为非安装版 Java 添加自定义路径（不像 PCL2，HMCL 只能添加一个自定义 Java 路径）
+5. 此后，你应该使用 HHML 脚本来启动 HMCL，而不是直接打开 JAR 文件。为了提升启动速度，你可以在 HMCL 的高级设置中启用“不检查游戏完整性”选项，因为游戏启动前的完整性检查会将大量数据复制到系统磁盘，如果游戏在U盘上，这将耗费大量时间来完成此步骤。
+6. 如果你需要保存账户信息到当前目录，请在“账户列表”中将账户转换为便携账户，否则在其他设备上需要重新登录。
 ## 高级用法
 ### 自定义 Java 路径（可使用相对路径）
 在脚本所在目录下创建一个名为“customPath.txt”的文本文档。内容是一行一个路径（可以是相对路径，也支持带空格的文件夹名称），就像这样：
