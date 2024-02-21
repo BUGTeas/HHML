@@ -5,12 +5,13 @@ if "%1" == "backup" goto afterExit
 setlocal enabledelayedexpansion
 
 rem Language config
+chcp 936
 set prd=。
 set lb=（
 set gb=）
 set cma=，
 set cln=：
-set txt000=Hello HMCL! Launcher v3.5.3.225 更新 4
+set txt000=Hello HMCL! Launcher v3.5.3.225 更新 5
 set txt001=（排除
 set txt002=正在从当前目录下寻找 HMCL（JAR）文件
 set txt003=当前目录下找不到可用的 HMCL，请确保它位于此批处理下的同一目录且名称格式为“HMCL-^^^<版本号^^^>.jar”。
@@ -203,9 +204,9 @@ for /f "tokens=*" %%i in (customPath.txt) do (
     if exist "%%i\bin\java.exe" (
         set javaPath=%%i
         if %checkJava% == 2 (call :testJava) else (call :addPath)
+        cd /d %lastcd%
     )
 )
-if "%cd%" neq %lastcd% cd %lastcd%
 call :checkPath
 goto :eof
 
@@ -220,12 +221,12 @@ for /r %%b in (*java.exe) do (
         call :testCDJava
     )
 )
-if "%cd%" neq %lastcd% cd %lastcd%
+if "%cd%" neq %lastcd% cd /d %lastcd%
 call :checkPath
 goto :eof
 rem Test Java under the current directory
 :testCDJava
-cd "%sPath%\..\..\"
+cd /d "%sPath%\..\..\"
 set javaPath=%cd%
 if %checkJava% == 2 (call :testJava) else (call :addPath)
 goto :eof
@@ -240,12 +241,12 @@ set pcnt=0
 set /a pcnt+=1
 for /f "delims=; tokens=%pcnt%" %%p in ("%PATH%") do (
     if exist "%%p\java.exe" (
-        cd "%%p\..\"
+        cd /d "%%p\..\"
         call :existPathJava
     )
     goto findPathWork
 )
-if "%cd%" neq %lastcd% cd %lastcd%
+if "%cd%" neq %lastcd% cd /d %lastcd%
 goto :eof
 :existPathJava
 set javaPath=%cd%
@@ -269,7 +270,7 @@ for /f "tokens=*" %%a in ('reg query "HKLM\SOFTWARE\JavaSoft"') do (
         )
     )
 )
-if "%cd%" neq %lastcd% cd %lastcd%
+if "%cd%" neq %lastcd% cd /d %lastcd%
 call :checkPath
 goto :eof
 rem Test Java in JavaSoft registry
@@ -292,7 +293,7 @@ set rp=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
 call :findInstWork
 set rp=HKCU\Software\Microsoft\Windows\CurrentVersion\Uninstall
 call :findInstWork
-if "%cd%" neq %lastcd% cd %lastcd%
+if "%cd%" neq %lastcd% cd /d %lastcd%
 call :checkPath
 goto :eof
 :findInstWork
@@ -335,7 +336,7 @@ rem Check Java and pick out the latest version
 :testJava
 rem Get Java bitness and version
 if not exist "%javaPath%\release" goto :eof
-cd "%javaPath%"
+cd /d "%javaPath%"
 for /f "tokens=*" %%a in (release) do if "%%a" neq "" set %%a
 rem Check bitness
 set use64java=0
