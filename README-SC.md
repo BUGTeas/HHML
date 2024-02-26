@@ -11,8 +11,8 @@ Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支�
 ## 简单用法
 1. 下载你游玩的MC版本所需的 Java 的压缩包格式（不是安装程序，可以是 OpenJDK）并将其解压，然后从 [HMCL 官方网站](https://hmcl.huangyuhui.net/download/)或官方 [Github Releases](https://github.com/huanghongxun/HMCL/releases/) 上下载 JAR 格式的 HMCL，再从这里下载最新版的 HHML 脚本：\
 \
-Windows 中文版：[HHML-SC-GB2312.bat](https://bugteas.github.io/HHML/Windows/HHML-SC-GB2312.bat)\
-Windows 英文版：[HHML-EN.bat](https://bugteas.github.io/HHML/Windows/HHML-EN.bat)\
+Windows 中文版：[HHML-SC-GB2312.bat](https://bugtea.ya.sy/HHML/Windows/HHML-SC-GB2312.bat)\
+Windows 英文版：[HHML-EN.bat](https://bugtea.ya.sy/HHML/Windows/HHML-EN.bat)\
 备用云盘：[showLink](https://www.123pan.com/s/0nHvjv-3XyHh.html)\
 \
 如果你使用非简体中文版 Windows 或启用了 UTF-8 全球语言支持，请选择英文版，否则会出现乱码甚至报错！
