@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive\
 English [简体中文](./README-SC.md) [Pages](https://bugteas.github.io/item.html?proFile=HHML/README.md) [Github](https://github.com/BUGTeas/HHML/)\
-Latest version：3.5.3.229 Update 4 (Support HMCL 3.5.5 and older)
+Latest version：3.5.3.229 Update 5 (Support HMCL 3.5.5 and older)
 ### HHML introduce
 Hello HMCL! Launcher（below referred to as HHML）is a command script (support Windows only now), look from the name, this is a launcher written for the launcher.
 
@@ -9,10 +9,10 @@ This script use to resolve the HMCL launcher (Hello Minecraft! Launcher) cannot 
 
 in addition, the HHML can also resolve HMCL put some related config file and runtime to user directory in system, resulting in the need for reconfiguration on another system (for example, need accept the EULA again). The script will restore the downloaded runtime and global to user directory in system and back it up when exiting.
 ## Simple usage
-1. Download a Java archive (not the installer, can be OpenJDK) of the required version of the MC version you are playing and unzip it, and download latest version of HMCL in JAR format on the [HMCL official webside](https://hmcl.huangyuhui.net/download/)or the [official GitHub releases](https://github.com/huanghongxun/HMCL/releases/), an download Latest HHML script from Github Pages：\
+1. Download a Java archive (not the installer, can be OpenJDK) of the required version of the MC version you are playing and unzip it, and download latest version of HMCL in JAR format on the [HMCL official webside](https://hmcl.huangyuhui.net/download/)or the [official GitHub releases](https://github.com/huanghongxun/HMCL/releases/), an download Latest HHML script from here：\
 \
-Windows Chinese simplified editon: [HHML-SC-GB2312.bat](https://bugteas.github.io/HHML/Windows/HHML-SC-GB2312.bat)\
-Windows English editon: [HHML-EN.bat](https://bugteas.github.io/HHML/Windows/HHML-EN.bat)\
+Windows Chinese simplified editon: [HHML-SC-GB2312.bat](HHML/Windows/HHML-SC-GB2312.bat)\
+Windows English editon: [HHML-EN.bat](HHML/Windows/HHML-EN.bat)\
 \
 if you using a non-Chinese simplified Windows or UTF-8 global language support has been enabled, please select the English edition, Otherwise garbled characters will appear, even cause errors!
 2. put the HMCL JAR file and HHML script and unzipped java archive (multiple different versions can be placed, directory structure is not limit) in the same directory (can be on a flash drive or hard disk)
