@@ -11,8 +11,8 @@ in addition, the HHML can also resolve HMCL put some related config file and run
 ## Simple usage
 1. Download a Java archive (not the installer, can be OpenJDK) of the required version of the MC version you are playing and unzip it, and download latest version of HMCL in JAR format on the [HMCL official webside](https://hmcl.huangyuhui.net/download/)or the [official GitHub releases](https://github.com/huanghongxun/HMCL/releases/), an download Latest HHML script from here：\
 \
-Windows Chinese simplified editon: [HHML-SC-GB2312.bat](HHML/Windows/HHML-SC-GB2312.bat)\
-Windows English editon: [HHML-EN.bat](HHML/Windows/HHML-EN.bat)\
+Windows Chinese simplified editon: [HHML-SC-GB2312.bat](https://bugteas.github.io/HHML/Windows/HHML-SC-GB2312.bat)\
+Windows English editon: [HHML-EN.bat](https://bugteas.github.io/HHML/Windows/HHML-EN.bat)\
 \
 if you using a non-Chinese simplified Windows or UTF-8 global language support has been enabled, please select the English edition, Otherwise garbled characters will appear, even cause errors!
 2. put the HMCL JAR file and HHML script and unzipped java archive (multiple different versions can be placed, directory structure is not limit) in the same directory (can be on a flash drive or hard disk)
