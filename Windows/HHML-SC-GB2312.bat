@@ -1,8 +1,7 @@
 @echo off
 if "%1" == "up" goto launch
 if "%1" == "backup" goto afterExit
-
-setlocal enabledelayedexpansion
+if "%1" == "load" goto load
 
 rem Language config
 chcp 936
@@ -11,13 +10,14 @@ set lb=（
 set gb=）
 set cma=，
 set cln=：
-set txt000=Hello HMCL! Launcher v3.5.3.225 更新 5
+set txt000=Hello HMCL! Launcher v1.6
 set txt001=（排除
 set txt002=正在从当前目录下寻找 HMCL（JAR）文件
 set txt003=当前目录下找不到可用的 HMCL，请确保它位于此批处理下的同一目录且名称格式为“HMCL-^^^<版本号^^^>.jar”。
-set txt004=已找到 HMCL，名为
-set txt005=，版本号为
+set txt004=无法获取 HMCL 的版本号，将按照文件顺序使用
+set txt005=将被使用，版本号为
 set txt006=（已转换为整数）
+set txt007=并默认为最新版本进行启动。
 set txt100=Java 路径为
 set txt101=正在从系统中寻找 Java
 set txt102=正在从当前目录下寻找 Java
@@ -25,16 +25,16 @@ set txt103=已检测到
 set txt104=正在从自定义路径下寻找 Java
 set txt105=位 
 set txt201=找不到可用的 Java
-set txt202=
-set txt203=
-set txt301=将被使用，版本号为
+set txt202=将使用
+set txt203=启动 HMCL。
+set txt301=
 set txt302=，路径为
 set txt501=正在还原全局配置
 set txt502=正在还原外置登录依赖
 set txt503=正在还原运行时组件
 set txt504=找不到适用于当前 HMCL 版本的运行时组件，将由 HMCL 自动下载（就这一次）。当 HMCL 退出时，会自动将其复制到此以备下次启动。
 set txt505=无法自动备份/还原/删除运行时组件，因为未知 Java 的位宽。
-set txt506=请检查 Java 的位宽（32位/64位）并在“config.txt”文件中配置“use64java”参数为0/1。
+set txt506=请根据 Java 的位宽（32位/64位）在“config.txt”文件中配置“use64java”参数为 0 或 1。
 set txt701=正在尝试隐藏 Shell...
 set txt702=（错误）
 set txt703=按任意键退出
@@ -45,15 +45,29 @@ set txt706=正在复制运行时组件以备下次启动
 set txt106=正在从 JavaSoft 注册表中寻找 Java
 set txt109=正在从 %%PATH%% 环境变量中寻找 Java
 set txt107=版本 
-set txt108= 在黑名单中，将被跳过。（如果它安装在系统中，HMCL 可能绕过黑名单从而检测到它）
+set txt108= 在黑名单中，将不会被用于启动 HMCL。
 set txt707=如果你想备份当前全局配置，请输入“y“然后按下回车：
 set txt708=这次将不备份当前全局配置。
 set txt709=HMCL 已退出。
+
+set txt801=程序意外崩溃。
+set txt802=已检测到 HMCL：
 
 
 echo %txt000%
 title %txt000%
 
+cmd /c %0 load
+if exist %TMP%\hhml_running (
+    echo %txt801%
+    goto error
+)
+goto end
+:load
+copy nul %TMP%\hhml_running > nul
+setlocal enabledelayedexpansion
+
+rem default HMCL lookup configuration
 rem default backup/restore/remove configuration
 set backupRunTime=1
 set restoreRunTime=1
@@ -77,64 +91,54 @@ set showHMCLlog=0
 
 
 rem Show excluded items
-for /f "tokens=*" %%a in (config.txt) do if "%%a" neq "" set %%a
+if exist config.txt for /f "eol=# tokens=1,2 delims==" %%a in (config.txt) do set %%a=%%b
+if exist hhml.properties for /f "eol=# tokens=1,2 delims==" %%a in (hhml.properties) do set %%a=%%b
 if "%verBlackList%" neq "none" set exclude=%txt001% %verBlackList%%gb%
 
 
 rem Search HMCL in the current directory
 echo %txt002%...
 set hmclLatestPath=none
+set hmclPath=none
+set "hmclVer=0"
 for /f "tokens=*" %%i in ('dir /b HMCL*.jar') do (
-    set g=n
-    set "hmclPath=%%i"
     set "cnt=4"
-    set "vaildCnt=0"
-    set "olderHMCL=0"
+    set "hmclLatestVer="
+    set "hmclLatestPath=%%i"
     call :testHMCL
 )
-if %hmclLatestPath% == none (
-    echo %txt003%
-    goto error
-) else set hmclPath=%hmclLatestPath%
-set hmclVer=%hv1%%hv2%%hv3%%hv4%%hv5%
-if %hmclVer% lss 1000 set hmclVer=%hmclVer%0
-if %hmclVer% lss 10000 set hmclVer=%hmclVer%0
-if %hmclVer% lss 100000 set hmclVer=%hmclVer%0
-if %hmclVer% lss 1000000 set hmclVer=%hmclVer%0
-if %hmclVer% lss 10000000 set hmclVer=%hmclVer%0
-echo %txt004% %hmclPath%%txt005% "%hmclVer%"%txt006%
+if %hmclPath% == none (
+    if %hmclLatestPath% == none (
+        echo %txt003%
+        goto error
+    )
+    set hmclPath=%hmclLatestPath%
+    set hmclVer=99999999
+    echo %txt004% "%hmclLatestPath%" %txt007%
+    goto findJava
+)
+echo "%hmclPath%" %txt005% "%hmclVer%"%txt006%
 goto findJava
 :testHMCL
-set string=!hmclPath:~%cnt%,1!
-set gtr=0
-echo %string%|findstr "[^0-9]">nul&&(
-    set g=g
-    if !hv%vaildCnt%! lss !lv%vaildCnt%! (
-        set hv%vaildCnt%=!lv%vaildCnt%!
-        set hmclLatestPath=%hmclPath%
-        set /a resetCnt=%vaildCnt%+1
-        call :resetHMCLVer
-    ) else if !hv%vaildCnt%! gtr !lv%vaildCnt%! set olderHMCL=1
-    set lv%vaildCnt%=
-)||if %olderHMCL% equ 0 call :setHMCLVer
+set string=!hmclLatestPath:~%cnt%,1!
+echo %string%| findstr "[^0-9]" > nul && (echo > nul) || set hmclLatestVer=%hmclLatestVer%%string%
 if "%string%" neq "" (
     set /a cnt+=1
     goto testHMCL
 )
-goto :eof
-:setHMCLVer
-if %g% equ g (
-    set g=n
-    set /a vaildcnt+=1
-)
-if "!hv%vaildCnt%!" equ "" set hv%vaildCnt%=0
-set lv%vaildCnt%=!lv%vaildCnt%!%string%
-goto :eof
-:resetHMCLVer
-if "!hv%resetCnt%!" neq "" (
-    set /a resetCnt+=1
-    set hv%resetCnt%=0
-    goto resetHMCLVer
+echo %txt802%"%hmclLatestPath%"%prd%
+if "%hmclLatestVer%" equ "" goto :eof
+if %hmclLatestVer% gtr 99999999 set hmclLatestVer=%hmclLatestVer:~0,8%
+if %hmclLatestVer% lss 10 set hmclLatestVer=%hmclLatestVer%0
+if %hmclLatestVer% lss 100 set hmclLatestVer=%hmclLatestVer%0
+if %hmclLatestVer% lss 1000 set hmclLatestVer=%hmclLatestVer%0
+if %hmclLatestVer% lss 10000 set hmclLatestVer=%hmclLatestVer%0
+if %hmclLatestVer% lss 100000 set hmclLatestVer=%hmclLatestVer%0
+if %hmclLatestVer% lss 1000000 set hmclLatestVer=%hmclLatestVer%0
+if %hmclLatestVer% lss 10000000 set hmclLatestVer=%hmclLatestVer%0
+if %hmclVer% lss %hmclLatestVer% (
+    set hmclVer=%hmclLatestVer%
+    set hmclPath=%hmclLatestPath%
 )
 goto :eof
 
@@ -344,12 +348,12 @@ if %OS_ARCH% == "amd64" set use64java=1
 if %OS_ARCH% == "x86_64" set use64java=1
 rem Check version
 if %use64java% == 1 (set txtbit=64) else (set txtbit=32)
-echo %txt103% %txtbit% %txt105%Java%cln%%JAVA_VERSION%%prd%
+echo %txt103% %txtbit% %txt105%Java%cln%%JAVA_VERSION%%txt302% "%javaPath%"%prd%
+if %checkJava% == 2 if "%inPathvar%" == "" call :addPath
 set cnt=1
 set inBlackList=0
 call :getBlackList
 if %inBlackList% equ 1 goto :eof
-if %checkJava% == 2 if "%inPathvar%" == "" call :addPath
 set ver=%JAVA_VERSION:_= %
 set ver=%ver:"=%
 rem Get subversion number behind the underline of old version number format（1.x.0_xxx）
@@ -418,12 +422,12 @@ goto error
 :selectJava
 if "%java8Path%" == "none" (
     if "%javaNewPath%" == "none" (goto javaNotFound) else (
-        echo Java %txt301% %javaNewVer%%txt302% "%javaNewPath%"%prd%
+        echo %txt202% "%javaNewPath%" %txt203%
         set "javaPath=%javaNewPath%"
         set use64java=%use64javaNew%
     )
 ) else (
-    echo Java 8 %txt301% %java8Ver%%txt302% "%java8Path%"%prd%
+    echo %txt202% "%java8Path%" %txt203%
     set "javaPath=%java8Path%"
     set use64java=%use64java8%
 )
@@ -521,16 +525,6 @@ if %backupRunTime% == 2 (
     if not exist .\dependencies\authlib-injector.jar xcopy /s %conDir%authlib-injector.jar .\dependencies\
 )
 if %backupGlobalConfig% == 2 call :backupGC
-rem if %backupGlobalConfig% == 1 (
-rem     if %showHMCLlog% == 0 (
-rem         mode con cols=90 lines=5
-rem         echo .
-rem         echo .
-rem         echo %txt704%...
-rem         pause>nul
-rem         call :backupGC
-rem     ) else call :backupGCSelect
-rem )
 if %removeGlobalConfig% == 2 (
     rem del %conDir%accounts.json
     del %conDir%config.json
@@ -567,5 +561,5 @@ echo %txt703%...
 pause>nul
 color
 
-
 :end
+if exist %TMP%\hhml_running del %TMP%\hhml_running

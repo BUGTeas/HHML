@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 A best solution to run HMCL (Hello Minecraft! Launcher) on flash drive\
 English [简体中文](./README-SC.md) [Pages](https://bugteas.github.io/item.html?proFile=HHML/README.md) [Github](https://github.com/BUGTeas/HHML/)\
-Latest version：3.5.3.229 Update 5 (Support HMCL 3.5.5 and older)
+Latest version：v1.6 (Theoretically, the full version of HMCL is supported)
 ### HHML introduce
 Hello HMCL! Launcher（below referred to as HHML）is a command script (support Windows only now), look from the name, this is a launcher written for the launcher.
 
@@ -25,15 +25,16 @@ if you using a non-Chinese simplified Windows or UTF-8 global language support h
 Create a text file under the same directory as the script and named "customPath.txt". The text content is one Java path per line (relative path can be used, directory name with spaces are also supported), like this:
 ```
 C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-64
-.\..\..\jdk\jdk-11.0.12
+.\..\directory with space\jdk\jdk-11.0.12
 \software\jdk\archive\jdk-17.0.8+7
 ```
 note: The Java path is not the directory where the Java binary is located, but the directory where the "bin" folder is located, which is equivalent to the JAVA_HOME variable.
 ### Config file
-create a text file and named "config.txt". There can be no comments or blank lines in the file, and the format is "configuration=parameter", like this:
-```
+create a text file and named "config.txt" or "hhml.properties". and the format is "configuration=parameter", like this:
+```properties
 searchInCustPath=2
 backupGlobalConfig=0
+#Comments
 checkJava=0
 use64java=1
 ```
@@ -148,7 +149,7 @@ Configuration name: checkJava\
 Default parameter: 2\
 Parameter:
 ```
-0: Select last Java in the file order, not check Java version and bitness (not recommended, you need set bitness through "use64Java" configuration, the Java version will be proposed as 11)
+0: Select last Java in the file order, not check Java version and bitness (Not recommended, you need set bitness through "use64Java" configuration, the Java version will be proposed as 11)
 1: Select last Java in the file order, and check its version and bitness
 2: detect version and bitness of any founded Java and pick the latest version
 ```
@@ -164,7 +165,7 @@ Parameter:
 \
 **Set Java bitness (only valid when parameter of checkJava is 0)**\
 Configuration name: use64java\
-Default parameter: x\
+No default parameter have\
 Parameter:
 ```
 0: 32 Bit Java（X86）
@@ -173,10 +174,9 @@ Parameter:
 \
 **Exclude some versions of Java (only valid when parameter of checkJava is 2)**\
 Configuration name: verBlackList\
-Usage: enter unwanted version number in the parameter (can be multiple, use comma "," to separated between each version), corresponding version will be excluded during version detecting.\
+Usage: enter unwanted version number in the parameter (can be multiple, use comma "," to separated between each version), HMCL will not be launched through the corresponding version.\
 Default parameter: none\
 Parameter demo:
 ```
 verBlackList=1.8.0_272,17.0.1,11.0.2
 ```
-Note: Java version in exclusion list will not use to launch HMCL, and not visible in Java path of HMCL. If it's installed in system, the script still can exclude it, but it may bypass the exclusion list and be detected in HMCL.

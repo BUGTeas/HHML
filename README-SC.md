@@ -1,7 +1,7 @@
 # Hello HMCL! Launcher (HHML)
 在U盘上运行 HMCL 的绝佳方案\
 [English](./README.md) 简体中文 [Pages](https://bugteas.github.io/item.html?proFile=HHML/README-SC.md) [备用](http://bugtea.eo.mk/item.html?proFile=HHML/README-SC.md) [Github](https://github.com/BUGTeas/HHML/)\
-最新版本：3.5.3.229 Update 5（支持 3.5.5 及以下版本的 HMCL）
+最新版本：v1.6（理论上支持全版本的 HMCL）
 ### HHML 介绍
 Hello HMCL! Launcher（以下简称 HHML）是一个命令脚本（目前仅支持 Windows），从名称上看，它就是一个给启动器写的启动器，禁止套娃（
 
@@ -26,16 +26,17 @@ Windows 英文版：[HHML-EN.bat](https://bugtea.ya.sy/HHML/Windows/HHML-EN.bat)
 在脚本所在目录下创建一个名为“customPath.txt”的文本文档。内容是一行一个路径（可以是相对路径，也支持带空格的文件夹名称），就像这样：
 ```
 C:\Users\Administrator\Desktop\jdk\archive\openlogic-openjdk-8u372-b07-windows-64
-.\..\..\jdk\jdk-11.0.12
+.\..\directory with space\jdk\jdk-11.0.12
 \software\jdk\archive\jdk-17.0.8+7
 ```
 注意：Java 路径不是 Java 程序本体所在路径，而是“bin”文件夹所在位置，类似于 JAVA_HOME 变量。
 
 ### 配置文件
-在脚本所在目录下创建一个名为“config.txt”的文本文档。里面不能有空行或注释，格式为“配置=参数”，就像这样：
-```
+在脚本所在目录下创建一个名为“config.txt”或“hhml.properties”的文本文档。格式为“配置=参数”，就像这样：
+```properties
 searchInCustPath=2
 backupGlobalConfig=0
+#注释
 checkJava=0
 use64java=1
 ```
@@ -171,7 +172,7 @@ use64java=1
 \
 **设置 Java 位数（只在 checkJava 参数为 0 时生效）**\
 配置名：use64java\
-默认参数：x\
+无默认参数\
 参数：
 ```
 0: 32 位 Java（X86）
@@ -180,10 +181,9 @@ use64java=1
 \
 **屏蔽部分版本的 Java（只在 checkJava 参数为 2 时生效）**\
 配置名：verBlackList\
-用法：将你不想使用的版本的版本号（可以多个,每个版本间用英符逗号“,”隔开）写入参数中，在检测版本时会将与其对应的版本屏蔽掉。\
+用法：将你不想使用的版本的版本号（可以多个,每个版本间用英符逗号“,”隔开）写入参数中，与其对应的版本不会被用于启动 HMCL，但不影响在 HMCL 中将其用于启动游戏。\
 默认参数：none\
 参数示例：
 ```
 verBlackList=1.8.0_272,17.0.1,11.0.2
 ```
-注意：位于屏蔽版本列表中的 Java 版本不会被用于启动 HMCL，也在 HMCL 的 Java 路径中不可见。但如果它安装在系统中，脚本依然能将其屏蔽，但在 HMCL 中可能会绕过屏蔽列表从而检测到它。
